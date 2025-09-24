@@ -118,17 +118,7 @@ body {
     color: rgba(0, 0, 0, 0.9);
 }
 
-/* Bluesky text styling */
-.bluesky-text {
-    font-size: 12px;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.7);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
 
-.social-icon:hover.bluesky-text {
-    color: rgba(0, 0, 0, 0.9);
-}
 
 
 /* Specific social media colors on hover */
