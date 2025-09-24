@@ -53,6 +53,10 @@ Only the most important sources are displayed in the second, extended drawer.
 
 ![Concept 010](concepts/FocusUI-concept-010-incoming-sources-expanded-importance.png)
 
+...and, as part of the first prototype:
+
+![Color gradient zones](screenshots/Dev_local_focusui_index.html-004.png)
+
 ### Functional Implementation (010)
 
 The final concepts show actual functionality with populated sidebars:
