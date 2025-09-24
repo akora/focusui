@@ -16,7 +16,8 @@ body {
     height: 100vh;
     width: 100vw;
     padding: 8px;
-    background: linear-gradient(135deg, #f0f0f0, #d8d8d8);
+    background: linear-gradient(to bottom right, #64748b 0%, #94a3b8 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%);
+    background-attachment: fixed;
 }
 
 /* Center area - takes full space */
@@ -54,27 +55,54 @@ body {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
-/* Base drawer styles */
+/* Base drawer styles with glass effect */
 .drawer {
-    background: rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     cursor: pointer;
     z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .drawer:hover {
-    background: rgba(0, 0, 0, 0.22);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.35) 0%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(0, 0, 0, 0.08) 100%);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.15),
+        0 3px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
 }
 
-/* Drawer handle (subtle visual indicator) */
+/* Drawer handle (subtle visual indicator) with glass effect */
 .drawer-handle {
     position: absolute;
-    background: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
-    border-radius: 2px;
+    border-radius: 3px;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* Drawer content and icons */
@@ -99,16 +127,32 @@ body {
     font-size: 24px;
     margin: 4px;
     padding: 8px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.2s ease;
     cursor: pointer;
     user-select: none;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(1.1) translateY(-1px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Specific layouts for each drawer direction */
@@ -265,14 +309,32 @@ body {
     left: 8px;
 }
 
-/* Expanded state styling */
+/* Expanded state styling with enhanced glass effect */
 .drawer.expanded {
-    background: rgba(0, 0, 0, 0.12);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .drawer.expanded .drawer-handle {
-    background: rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.5) 0%, 
+        rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* Responsive behavior */
