@@ -16,32 +16,30 @@ The design evolved through systematic exploration of drawer-based navigation:
 
 #### Single Drawer Concepts
 
-![Left drawer concept](concepts/FocusUI-concept-001-drawer-left.png)
+<img src="concepts/FocusUI-concept-001-drawer-left.png" alt="Left drawer concept" width="400" style="margin: 10px;">
+<img src="concepts/FocusUI-concept-002-drawer-right.png" alt="Right drawer concept" width="400" style="margin: 10px;">
 
-![Right drawer concept](concepts/FocusUI-concept-002-drawer-right.png)
-
-**Left and right drawer concepts showing the foundation of the modular system**
+Left and right drawer concepts showing the foundation of the modular system
 
 #### Multi-Drawer Layouts
 
-![Dual drawer concept](concepts/FocusUI-concept-003-drawer-left-right.png)
+<img src="concepts/FocusUI-concept-003-drawer-left-right.png" alt="Dual drawer concept" width="400" style="margin: 10px;">
+<img src="concepts/FocusUI-concept-005-drawer-left-right-top-bottom.png" alt="Four drawer concept" width="400" style="margin: 10px;">
 
-![Four drawer concept](concepts/FocusUI-concept-005-drawer-left-right-top-bottom.png)
-
-**Evolution to dual drawers and the complete four-drawer system**
+Evolution to dual drawers and the complete four-drawer system
 
 #### Functional Implementation
 
-![Expanded drawer demonstration](concepts/FocusUI-concept-006-drawer-left-expanded.png)
-![Populated drawer with applications](concepts/FocusUI-concept-010-incoming-sources-expanded.png)
+<img src="concepts/FocusUI-concept-006-drawer-left-expanded.png" alt="Expanded drawer demonstration" width="400" style="margin: 10px;">
+<img src="concepts/FocusUI-concept-010-incoming-sources-expanded.png" alt="Populated drawer with applications" width="400" style="margin: 10px;">
 
-**Expanded drawer functionality and real-world application integration**
+Expanded drawer functionality and real-world application integration
 
 #### Priority and Importance Indicators
 
-![Importance indicators with color coding](concepts/FocusUI-concept-010-incoming-sources-expanded-importance.png)
+<img src="concepts/FocusUI-concept-010-incoming-sources-expanded-importance.png" alt="Importance indicators with color coding" width="400" style="margin: 10px;">
 
-**Visual hierarchy with color-coded importance levels for source prioritization**
+Visual hierarchy with color-coded importance levels for source prioritization
 
 ## Concept Evolution
 
