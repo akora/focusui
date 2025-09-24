@@ -52,6 +52,110 @@ body {
     border-radius: 2px;
 }
 
+/* Drawer content and icons */
+.drawer-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.drawer.expanded .drawer-content {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.icon {
+    font-size: 24px;
+    margin: 4px;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Specific layouts for each drawer direction */
+.drawer-top .drawer-content,
+.drawer-bottom .drawer-content {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.drawer-left .drawer-content,
+.drawer-right .drawer-content {
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Social media icon styling */
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+}
+
+.social-icon i {
+    color: rgba(0, 0, 0, 0.7);
+    transition: color 0.2s ease;
+}
+
+.social-icon:hover i {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+/* Bluesky text styling */
+.bluesky-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.social-icon:hover.bluesky-text {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+
+/* Specific social media colors on hover */
+.social-icon:nth-child(1):hover {
+    background: rgba(0, 0, 0, 0.3); /* X (Twitter) - dark */
+}
+
+.social-icon:nth-child(2):hover {
+    background: rgba(0, 119, 181, 0.3); /* LinkedIn - blue */
+}
+
+.social-icon:nth-child(3):hover {
+    background: rgba(24, 119, 242, 0.3); /* Facebook - blue */
+}
+
+.social-icon:nth-child(4):hover {
+    background: rgba(0, 133, 255, 0.3); /* Bluesky - sky blue */
+}
+
+.social-icon:nth-child(5):hover {
+    background: rgba(99, 100, 255, 0.3); /* Mastodon - purple */
+}
+
+.social-icon:nth-child(6):hover {
+    background: rgba(37, 211, 102, 0.3); /* WhatsApp - green */
+}
+
 /* Top drawer */
 .drawer-top {
     top: 8px;
@@ -169,12 +273,12 @@ body {
     }
     
     .drawer-top.expanded {
-        height: 60px;
-        max-height: 12vh; /* Icon-optimized for mobile */
+        height: 80px;
+        max-height: 20vh; /* More space for icons on mobile */
     }
     
     .drawer-bottom.expanded {
-        height: 60px;
-        max-height: 12vh; /* Icon-optimized for mobile */
+        height: 80px;
+        max-height: 20vh; /* More space for icons on mobile */
     }
 }
