@@ -23,8 +23,8 @@ body {
 .center-area {
     position: absolute;
     top: 48px; /* 40px drawer + 8px gap */
-    left: 68px; /* 60px drawer + 8px gap */
-    right: 68px; /* 60px drawer + 8px gap */
+    left: 48px; /* 40px drawer + 8px gap */
+    right: 48px; /* 40px drawer + 8px gap */
     bottom: 48px; /* 40px drawer + 8px gap */
     background: transparent;
 }
@@ -36,10 +36,12 @@ body {
     position: absolute;
     cursor: pointer;
     z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .drawer:hover {
     background: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* Drawer handle (subtle visual indicator) */
@@ -47,6 +49,7 @@ body {
     position: absolute;
     background: rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    border-radius: 2px;
 }
 
 /* Top drawer */
@@ -55,6 +58,8 @@ body {
     left: 8px;
     right: 8px;
     height: 40px;
+    /* Curved shape: sharp top edges, curved bottom (toward center) */
+    border-radius: 0 0 50% 50%;
 }
 
 .drawer-top.expanded {
@@ -67,6 +72,8 @@ body {
     left: 8px;
     right: 8px;
     height: 40px;
+    /* Curved shape: curved top (toward center), sharp bottom edges */
+    border-radius: 50% 50% 0 0;
 }
 
 .drawer-bottom.expanded {
@@ -92,10 +99,12 @@ body {
 
 /* Left drawer */
 .drawer-left {
-    top: 56px; /* 40px top drawer + 8px gap + 8px padding */
+    top: 48px; /* 40px top drawer + 8px gap */
     left: 8px;
-    bottom: 56px; /* 40px bottom drawer + 8px gap + 8px padding */
-    width: 60px;
+    bottom: 48px; /* 40px bottom drawer + 8px gap */
+    width: 40px;
+    /* Curved shape: sharp left edges, curved right (toward center) */
+    border-radius: 0 50% 50% 0;
 }
 
 .drawer-left.expanded {
@@ -104,10 +113,12 @@ body {
 
 /* Right drawer */
 .drawer-right {
-    top: 56px; /* 40px top drawer + 8px gap + 8px padding */
+    top: 48px; /* 40px top drawer + 8px gap */
     right: 8px;
-    bottom: 56px; /* 40px bottom drawer + 8px gap + 8px padding */
-    width: 60px;
+    bottom: 48px; /* 40px bottom drawer + 8px gap */
+    width: 40px;
+    /* Curved shape: curved left (toward center), sharp right edges */
+    border-radius: 50% 0 0 50%;
 }
 
 .drawer-right.expanded {
@@ -134,6 +145,7 @@ body {
 /* Expanded state styling */
 .drawer.expanded {
     background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 .drawer.expanded .drawer-handle {
