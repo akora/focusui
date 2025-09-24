@@ -415,7 +415,6 @@ body {
 /* Make secondary drawer icons smaller but keep same glass styling */
 .secondary-drawer-content .icon {
     position: absolute;
-    right: 8px; /* Align to right side */
     font-size: 18px; /* Smaller than primary drawer icons (24px) */
     margin: 2px; /* Smaller margin */
     padding: 6px; /* Smaller padding */
@@ -449,39 +448,42 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Importance-based positioning - compensating for visual curve effect */
+/* Importance-based positioning - mathematically centered using curvature calculations */
+/* For 50% border-radius (elliptical curve), the width at height h is: w = drawer_width * sqrt(1 - ((h - 0.5) * 2)^2) */
+/* Drawer width ≈ 60px collapsed, 120px expanded. Icon center = (available_width - icon_width) / 2 */
+
 /* High importance - Red zone (top 25% of gradient) */
-.secondary-drawer-content .icon:nth-child(1) { /* Twitter - first icon */
-    top: 15%; /* Top of red zone but safe from curve */
-    right: 30px; /* More inset to compensate for curve visual effect */
+.secondary-drawer-content .icon:nth-child(1) { /* Twitter - first icon at 15% height */
+    top: 15%; 
+    left: 55px; /* Much more margin from left edge */
 }
 
-.secondary-drawer-content .icon:nth-child(2) { /* LinkedIn - second icon */
-    top: 25%; /* Still in red zone, more spacing */
-    right: 25px; /* Moderately inset as curve opens */
+.secondary-drawer-content .icon:nth-child(2) { /* LinkedIn - second icon at 25% height */
+    top: 25%;
+    left: 61px; /* Much more margin from left edge */
 }
 
 /* Medium-high importance - Orange zone (25-50% of gradient) */
-.secondary-drawer-content .icon:nth-child(3) { /* WhatsApp - third icon */
-    top: 40%; /* Middle of orange zone */
-    right: 18px; /* Slightly more inset than middle */
+.secondary-drawer-content .icon:nth-child(3) { /* WhatsApp - third icon at 40% height */
+    top: 40%;
+    left: 68px; /* Much more margin from left edge */
 }
 
 /* Medium importance - Yellow zone (50-75% of gradient) */
-.secondary-drawer-content .icon:nth-child(4) { /* Facebook - fourth icon */
-    top: 60%; /* Middle of yellow zone */
-    right: 15px; /* Least inset - widest part of drawer */
+.secondary-drawer-content .icon:nth-child(4) { /* Facebook - fourth icon at 60% height */
+    top: 60%;
+    left: 68px; /* Same as 40% - widest usable area */
 }
 
 /* Low importance - Blue zone (75-100% of gradient) */
-.secondary-drawer-content .icon:nth-child(5) { /* Bluesky - fifth icon */
-    top: 75%; /* Start of blue zone */
-    right: 25px; /* More inset as curve begins */
+.secondary-drawer-content .icon:nth-child(5) { /* Bluesky - fifth icon at 75% height */
+    top: 75%;
+    left: 61px; /* Mirror of 25% position */
 }
 
-.secondary-drawer-content .icon:nth-child(6) { /* Mastodon - sixth icon */
-    top: 85%; /* End of blue zone but safe from bottom curve */
-    right: 30px; /* Most inset to compensate for curve visual effect */
+.secondary-drawer-content .icon:nth-child(6) { /* Mastodon - sixth icon at 85% height */
+    top: 85%;
+    left: 55px; /* Mirror of 15% - most aggressive curve */
 }
 
 /* Animation for importance changes */
