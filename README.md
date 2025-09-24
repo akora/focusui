@@ -4,7 +4,7 @@ Focus UI is a new type of web interface that allows users to focus on the import
 
 ## Design Philosophy
 
-The entire interface follows a left-to-right user journey: on the left hand side there are all the input streams, on the right hand side there are all the output streams, and in the middle there is the main action area.
+The entire interface follows a left-to-right user journey approach (this can be adjusted later): on the left hand side there are all the input streams, on the right hand side there are all the output streams, and in the middle there is the main action area.
 
 There are no menus, the interaction in the middle section is based on the actual content that's being displayed.
 
@@ -12,25 +12,25 @@ There are no menus, the interaction in the middle section is based on the actual
 
 ### Current Working Interface
 
-The Focus UI has been implemented with a beautiful glass morphism design and advanced drawer system:
+Focus UI has been implemented with a beautiful glass morphism design and advanced drawer system:
 
 #### Base Interface with Glass Effects
 
 ![Focus UI base interface with glass morphism effects](screenshots/Dev_local_focusui_index.html-001.png)
 
-Clean, minimalist interface featuring glass morphism drawers with backdrop blur effects and subtle transparency
+Clean, minimalist interface featuring glass morphism drawers with backdrop blur effects and subtle transparency.
 
 #### Expanded Primary Drawer with Social Media Icons
 
 ![Expanded left drawer showing social media navigation](screenshots/Dev_local_focusui_index.html-002.png)
 
-Left drawer expanded showing social media icons with consistent glass styling and smooth animations
+Left drawer expanded showing social media icons with consistent glass styling and smooth animations.
 
 #### Dual Drawer System - Primary and Secondary Navigation
 
 ![Both primary and secondary drawers active showing layered navigation](screenshots/Dev_local_focusui_index.html-003.png)
 
-Advanced dual drawer system with proper z-index layering, where the secondary drawer provides additional navigation options while maintaining visual hierarchy
+Advanced dual drawer system with proper z-index layering, where the secondary drawer provides additional navigation options while maintaining visual hierarchy.
 
 ## Concept Evolution
 
@@ -45,6 +45,14 @@ The design concepts in the `concepts/` folder demonstrate a systematic explorati
 - **Concept 005**: Four-panel layout (left + right + top + bottom)
 - **Concept 006**: Expanded left drawer demonstration
 
+As the data from the various sources gets streamed, their relevance and importance are calculated.
+
+![Concept 010](concepts/FocusUI-concept-010-incoming-sources-expanded.png)
+
+Only the most important sources are displayed in the second, extended drawer.
+
+![Concept 010](concepts/FocusUI-concept-010-incoming-sources-expanded-importance.png)
+
 ### Functional Implementation (010)
 
 The final concepts show actual functionality with populated sidebars:
@@ -58,143 +66,6 @@ The final concepts show actual functionality with populated sidebars:
 - **Modular drawer system**: Collapsible panels organize different input/output sources
 - **Visual hierarchy**: Color coding for importance and categorization
 - **Progressive disclosure**: Panels can be added incrementally based on user needs
-- **Consistent branding**: Centered "FocusUI" logo maintains brand presence
-
-## Technology Recommendations
-
-### Frontend Framework Options
-
-#### Option 1: React + TypeScript (Recommended)
-
-**Best for**: Complex state management, component reusability, large team development
-
-```bash
-# Core dependencies
-- React 18+ with TypeScript
-- Vite or Next.js for build tooling
-- React Query/TanStack Query for data fetching
-- Zustand or Redux Toolkit for state management
-```
-
-**Pros**: Mature ecosystem, excellent TypeScript support, extensive component libraries
-**Cons**: Steeper learning curve, larger bundle size
-
-#### Option 2: Vue 3 + TypeScript
-
-**Best for**: Rapid prototyping, gentle learning curve, progressive enhancement
-
-```bash
-# Core dependencies  
-- Vue 3 with Composition API
-- Vite for build tooling
-- Pinia for state management
-- Vue Query for data fetching
-```
-
-**Pros**: Easier to learn, excellent documentation, smaller bundle size
-**Cons**: Smaller ecosystem compared to React
-
-#### Option 3: Svelte/SvelteKit
-
-**Best for**: Performance-critical applications, minimal bundle size
-
-```bash
-# Core dependencies
-- SvelteKit for full-stack framework
-- TypeScript support built-in
-- Svelte stores for state management
-```
-
-**Pros**: Smallest bundle size, compile-time optimizations, simple syntax
-**Cons**: Smaller community, fewer third-party components
-
-### UI Component Libraries
-
-#### For React
-
-- **Radix UI**: Unstyled, accessible components (recommended for custom design)
-- **Mantine**: Full-featured with drawer/sidebar components
-- **Chakra UI**: Simple, modular component library
-
-#### For Vue
-
-- **Headless UI**: Unstyled, accessible components
-- **Quasar**: Full-featured Vue framework with drawer components
-- **Naive UI**: TypeScript-first component library
-
-### Styling Solutions
-
-#### CSS-in-JS (React)
-
-```bash
-- Styled Components or Emotion
-- Theme support for consistent design system
-```
-
-#### Utility-First CSS
-
-```bash
-- Tailwind CSS (framework agnostic)
-- UnoCSS for atomic CSS generation
-```
-
-#### CSS Modules
-
-```bash
-- Scoped styling with build-time optimization
-- Works with any framework
-```
-
-### Animation Libraries
-
-```bash
-- Framer Motion (React) - Advanced animations and gestures
-- Auto-Animate - Simple, automatic animations
-- GSAP - High-performance animations (framework agnostic)
-- Lottie - Vector animations from After Effects
-```
-
-### Drawer/Sidebar Implementation
-
-#### Key Features to Implement
-
-- **Responsive behavior**: Collapse on mobile, expand on desktop
-- **Gesture support**: Swipe to open/close on touch devices
-- **Keyboard navigation**: Accessible drawer controls
-- **State persistence**: Remember user's drawer preferences
-- **Smooth animations**: 60fps transitions between states
-
-#### Technical Considerations
-
-```javascript
-// Example drawer state management
-const drawerState = {
-  left: { isOpen: false, width: 280 },
-  right: { isOpen: false, width: 320 },
-  top: { isOpen: false, height: 200 },
-  bottom: { isOpen: false, height: 150 }
-}
-```
-
-### Development Workflow
-
-#### Recommended Stack
-
-```bash
-# Build Tools
-- Vite (fast development server)
-- TypeScript (type safety)
-- ESLint + Prettier (code quality)
-
-# Testing
-- Vitest (unit testing)
-- Playwright (e2e testing)
-- Storybook (component development)
-
-# Deployment
-- Vercel/Netlify (static hosting)
-- Docker (containerized deployment)
-```
 
 ### Implementation Phases
 
