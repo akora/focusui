@@ -27,6 +27,31 @@ body {
     right: 48px; /* 40px drawer + 8px gap */
     bottom: 48px; /* 40px drawer + 8px gap */
     background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo container and styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.logo-container:hover {
+    opacity: 1;
+}
+
+.focusui-logo {
+    max-width: 300px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
 /* Base drawer styles */
