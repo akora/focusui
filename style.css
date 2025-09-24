@@ -342,14 +342,19 @@ body {
 /* Secondary drawer - positioned as independent element */
 .secondary-drawer {
     position: fixed;
-    top: 48px; /* Same as primary drawer */
-    bottom: 48px; /* Same as primary drawer */
+    top: 52px; /* Slightly smaller vertically */
+    bottom: 52px; /* Slightly smaller vertically */
     left: 48px; /* Positioned behind primary drawer */
     width: 60px; /* Slightly wider for better icon spacing */
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.25) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(0, 0, 0, 0.05) 100%);
+    background: linear-gradient(to bottom, 
+        rgba(139, 0, 0, 0.4) 0%,     /* Darker red at top */
+        rgba(255, 69, 0, 0.35) 25%,  /* Red-orange */
+        rgba(255, 165, 0, 0.3) 50%,  /* Orange in middle */
+        rgba(255, 255, 0, 0.25) 75%, /* Yellow */
+        rgba(173, 216, 230, 0.3) 100% /* Light blue at bottom */
+    ), linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 100%); /* Overlay glass effect */
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -369,10 +374,15 @@ body {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0); /* Slide out */
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.25) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(0, 0, 0, 0.05) 100%); /* Restore glass effect */
+    background: linear-gradient(to bottom, 
+        rgba(139, 0, 0, 0.5) 0%,     /* Darker red at top - enhanced */
+        rgba(255, 69, 0, 0.4) 25%,   /* Red-orange - enhanced */
+        rgba(255, 165, 0, 0.35) 50%, /* Orange in middle - enhanced */
+        rgba(255, 255, 0, 0.3) 75%,  /* Yellow - enhanced */
+        rgba(173, 216, 230, 0.35) 100% /* Light blue at bottom - enhanced */
+    ), linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.1) 100%); /* Enhanced glass effect for active state */
     backdrop-filter: blur(16px) saturate(1.4);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -383,9 +393,16 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
+
 /* Keep primary drawer z-index high when secondary drawer is active */
 .drawer-left.secondary-active {
     z-index: 100 !important; /* Force primary drawer to stay on top */
+}
+
+/* Hide the handle on left drawer when secondary drawer is expanded */
+.drawer-left.secondary-active .drawer-handle {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .secondary-drawer-content {
