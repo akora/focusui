@@ -383,17 +383,9 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Make primary drawer completely opaque and on top when secondary drawer is active */
+/* Keep primary drawer z-index high when secondary drawer is active */
 .drawer-left.secondary-active {
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.9) 0%, 
-        rgba(255, 255, 255, 0.8) 50%, 
-        rgba(0, 0, 0, 0.3) 100%) !important;
-    backdrop-filter: blur(24px) saturate(2) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
     z-index: 100 !important; /* Force primary drawer to stay on top */
-    transform: translateZ(1px) !important; /* Push forward in 3D space */
 }
 
 .secondary-drawer-content {
