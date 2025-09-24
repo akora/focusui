@@ -43,15 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 drawers.left.classList.remove('secondary-active');
             }
             
-            // Toggle this drawer
+            // Toggle this drawer (allow multiple drawers to be open)
             drawer.classList.toggle('expanded');
-            
-            // Close other drawers
-            Object.keys(drawers).forEach(otherPosition => {
-                if (otherPosition !== position) {
-                    drawers[otherPosition].classList.remove('expanded');
-                }
-            });
             
             // Update logo visibility
             updateLogoVisibility();
@@ -97,6 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'ArrowLeft':
                 if (e.ctrlKey || e.metaKey) {
                     e.preventDefault();
+                    // Close secondary drawer when left drawer closes
+                    if (drawers.left.classList.contains('expanded')) {
+                        secondaryDrawer.classList.remove('active');
+                        secondaryTrigger.classList.remove('active');
+                        drawers.left.classList.remove('secondary-active');
+                    }
                     drawers.left.classList.toggle('expanded');
                     updateLogoVisibility();
                 }
