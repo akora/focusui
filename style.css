@@ -406,17 +406,16 @@ body {
 }
 
 .secondary-drawer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Align icons to the right */
-    justify-content: center;
+    position: relative;
     height: 100%;
-    padding: 16px 8px;
-    gap: 6px; /* Slightly smaller gap for smaller icons */
+    padding: 0; /* Remove padding to use full height */
+    /* Remove flex layout to allow absolute positioning */
 }
 
 /* Make secondary drawer icons smaller but keep same glass styling */
 .secondary-drawer-content .icon {
+    position: absolute;
+    right: 8px; /* Align to right side */
     font-size: 18px; /* Smaller than primary drawer icons (24px) */
     margin: 2px; /* Smaller margin */
     padding: 6px; /* Smaller padding */
@@ -448,6 +447,47 @@ body {
     box-shadow: 
         0 4px 16px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Importance-based positioning - compensating for visual curve effect */
+/* High importance - Red zone (top 25% of gradient) */
+.secondary-drawer-content .icon:nth-child(1) { /* Twitter - first icon */
+    top: 15%; /* Top of red zone but safe from curve */
+    right: 30px; /* More inset to compensate for curve visual effect */
+}
+
+.secondary-drawer-content .icon:nth-child(2) { /* LinkedIn - second icon */
+    top: 25%; /* Still in red zone, more spacing */
+    right: 25px; /* Moderately inset as curve opens */
+}
+
+/* Medium-high importance - Orange zone (25-50% of gradient) */
+.secondary-drawer-content .icon:nth-child(3) { /* WhatsApp - third icon */
+    top: 40%; /* Middle of orange zone */
+    right: 18px; /* Slightly more inset than middle */
+}
+
+/* Medium importance - Yellow zone (50-75% of gradient) */
+.secondary-drawer-content .icon:nth-child(4) { /* Facebook - fourth icon */
+    top: 60%; /* Middle of yellow zone */
+    right: 15px; /* Least inset - widest part of drawer */
+}
+
+/* Low importance - Blue zone (75-100% of gradient) */
+.secondary-drawer-content .icon:nth-child(5) { /* Bluesky - fifth icon */
+    top: 75%; /* Start of blue zone */
+    right: 25px; /* More inset as curve begins */
+}
+
+.secondary-drawer-content .icon:nth-child(6) { /* Mastodon - sixth icon */
+    top: 85%; /* End of blue zone but safe from bottom curve */
+    right: 30px; /* Most inset to compensate for curve visual effect */
+}
+
+/* Animation for importance changes */
+.secondary-drawer-content .icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth position changes */
 }
 
 /* Secondary trigger styling */
