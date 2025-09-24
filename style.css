@@ -1,0 +1,160 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* Main app container - Relative positioning for absolute children */
+.app {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    padding: 8px;
+    background: linear-gradient(135deg, #f0f0f0, #d8d8d8);
+}
+
+/* Center area - takes full space */
+.center-area {
+    position: absolute;
+    top: 48px; /* 40px drawer + 8px gap */
+    left: 68px; /* 60px drawer + 8px gap */
+    right: 68px; /* 60px drawer + 8px gap */
+    bottom: 48px; /* 40px drawer + 8px gap */
+    background: transparent;
+}
+
+/* Base drawer styles */
+.drawer {
+    background: rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.drawer:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* Drawer handle (subtle visual indicator) */
+.drawer-handle {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Top drawer */
+.drawer-top {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 40px;
+}
+
+.drawer-top.expanded {
+    height: 200px;
+}
+
+/* Bottom drawer */
+.drawer-bottom {
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    height: 40px;
+}
+
+.drawer-bottom.expanded {
+    height: 150px;
+}
+
+.drawer-top .drawer-handle,
+.drawer-bottom .drawer-handle {
+    width: 60px;
+    height: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.drawer-top .drawer-handle {
+    bottom: 8px;
+}
+
+.drawer-bottom .drawer-handle {
+    top: 8px;
+}
+
+/* Left drawer */
+.drawer-left {
+    top: 56px; /* 40px top drawer + 8px gap + 8px padding */
+    left: 8px;
+    bottom: 56px; /* 40px bottom drawer + 8px gap + 8px padding */
+    width: 60px;
+}
+
+.drawer-left.expanded {
+    width: 280px;
+}
+
+/* Right drawer */
+.drawer-right {
+    top: 56px; /* 40px top drawer + 8px gap + 8px padding */
+    right: 8px;
+    bottom: 56px; /* 40px bottom drawer + 8px gap + 8px padding */
+    width: 60px;
+}
+
+.drawer-right.expanded {
+    width: 320px;
+}
+
+.drawer-left .drawer-handle,
+.drawer-right .drawer-handle {
+    width: 4px;
+    height: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.drawer-left .drawer-handle {
+    right: 8px;
+}
+
+.drawer-right .drawer-handle {
+    left: 8px;
+}
+
+/* Expanded state styling */
+.drawer.expanded {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.drawer.expanded .drawer-handle {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .drawer-left.expanded {
+        width: 240px;
+    }
+    
+    .drawer-right.expanded {
+        width: 240px;
+    }
+    
+    .drawer-top.expanded {
+        height: 150px;
+    }
+    
+    .drawer-bottom.expanded {
+        height: 120px;
+    }
+}
