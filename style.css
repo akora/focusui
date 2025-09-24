@@ -339,13 +339,13 @@ body {
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/* Secondary drawer - positioned as child of primary drawer */
+/* Secondary drawer - positioned as independent element */
 .secondary-drawer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 40px; /* Positioned slightly behind primary drawer */
-    width: 40px; /* Same as collapsed primary drawer */
+    position: fixed;
+    top: 48px; /* Same as primary drawer */
+    bottom: 48px; /* Same as primary drawer */
+    left: 48px; /* Positioned behind primary drawer */
+    width: 60px; /* Slightly wider for better icon spacing */
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.25) 0%, 
         rgba(255, 255, 255, 0.1) 50%, 
@@ -365,14 +365,18 @@ body {
 }
 
 .secondary-drawer.active {
-    width: 100px; /* Same as expanded primary drawer */
+    width: 120px; /* Slightly wider than expanded primary drawer */
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0); /* Slide out */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(0, 0, 0, 0.05) 100%); /* Restore glass effect */
     backdrop-filter: blur(16px) saturate(1.4);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 1; /* Keep it behind primary drawer content within isolated context */
+    z-index: 5; /* Lower than primary drawer's z-index: 10 */
     box-shadow: 
         0 6px 24px rgba(0, 0, 0, 0.15),
         0 3px 12px rgba(0, 0, 0, 0.08),
@@ -388,18 +392,53 @@ body {
     backdrop-filter: blur(24px) saturate(2) !important;
     -webkit-backdrop-filter: blur(24px) saturate(2) !important;
     border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    z-index: 20 !important; /* Force primary drawer to stay on top */
-    transform: translateZ(0) !important; /* Create new stacking context */
+    z-index: 100 !important; /* Force primary drawer to stay on top */
+    transform: translateZ(1px) !important; /* Push forward in 3D space */
 }
 
 .secondary-drawer-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end; /* Align icons to the right */
     justify-content: center;
     height: 100%;
     padding: 16px 8px;
-    gap: 8px;
+    gap: 6px; /* Slightly smaller gap for smaller icons */
+}
+
+/* Make secondary drawer icons smaller but keep same glass styling */
+.secondary-drawer-content .icon {
+    font-size: 18px; /* Smaller than primary drawer icons (24px) */
+    margin: 2px; /* Smaller margin */
+    padding: 6px; /* Smaller padding */
+    width: 28px; /* Smaller width */
+    height: 28px; /* Smaller height */
+    border-radius: 8px; /* Inherit glass styling */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.secondary-drawer-content .icon:hover {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(1.05) translateY(-1px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Secondary trigger styling */
