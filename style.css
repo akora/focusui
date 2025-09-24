@@ -55,19 +55,20 @@ body {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
-/* Base drawer styles with glass effect */
+/* Base drawer styles with glass effect - less transparent */
 .drawer {
     background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.25) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(0, 0, 0, 0.05) 100%);
-    backdrop-filter: blur(12px) saturate(1.2);
-    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(0, 0, 0, 0.1) 100%);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     cursor: pointer;
     z-index: 10;
+    isolation: isolate; /* Create isolated stacking context */
     box-shadow: 
         0 4px 16px rgba(0, 0, 0, 0.1),
         0 2px 8px rgba(0, 0, 0, 0.06),
@@ -116,6 +117,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    z-index: 2; /* Above secondary drawer within isolated context */
 }
 
 .drawer.expanded .drawer-content {
@@ -335,6 +337,89 @@ body {
     box-shadow: 
         0 3px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Secondary drawer - positioned as child of primary drawer */
+.secondary-drawer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px; /* Positioned slightly behind primary drawer */
+    width: 40px; /* Same as collapsed primary drawer */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 50% 50% 0; /* Same curve as primary drawer */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-100%); /* Hidden by sliding left */
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.secondary-drawer.active {
+    width: 100px; /* Same as expanded primary drawer */
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0); /* Slide out */
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1; /* Keep it behind primary drawer content within isolated context */
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.15),
+        0 3px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Make primary drawer completely opaque and on top when secondary drawer is active */
+.drawer-left.secondary-active {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.9) 0%, 
+        rgba(255, 255, 255, 0.8) 50%, 
+        rgba(0, 0, 0, 0.3) 100%) !important;
+    backdrop-filter: blur(24px) saturate(2) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    z-index: 20 !important; /* Force primary drawer to stay on top */
+    transform: translateZ(0) !important; /* Create new stacking context */
+}
+
+.secondary-drawer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 16px 8px;
+    gap: 8px;
+}
+
+/* Secondary trigger styling */
+.secondary-trigger {
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 8px;
+}
+
+.secondary-trigger i {
+    transition: transform 0.3s ease;
+}
+
+.secondary-trigger.active i {
+    transform: rotate(180deg);
+}
+
+/* Only show secondary drawer when primary left drawer is expanded */
+.drawer-left:not(.expanded) .secondary-drawer {
+    display: none;
 }
 
 /* Responsive behavior */
