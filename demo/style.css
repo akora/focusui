@@ -579,8 +579,8 @@ body {
         backdrop-filter: blur(16px) saturate(1.4);
         -webkit-backdrop-filter: blur(16px) saturate(1.4);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        /* Optimized positioning - closer to bottom but still safe */
-        bottom: 6vh !important;
+        /* Final positioning - very close to bottom */
+        bottom: 1vh !important;
         position: fixed !important;
         z-index: 99999 !important;
         min-height: 40px;
@@ -593,7 +593,7 @@ body {
     .drawer-bottom.expanded {
         height: 80px !important;
         max-height: 15vh !important;
-        bottom: 6vh !important;
+        bottom: 1vh !important;
         background: linear-gradient(135deg,
             rgba(255, 255, 255, 0.3) 0%,
             rgba(255, 255, 255, 0.15) 50%,
@@ -609,6 +609,6 @@ body {
     }
 
     .center-area {
-        bottom: 14vh !important; /* Adjust for optimized drawer position */
+        bottom: 9vh !important; /* Adjust for 1vh drawer position */
     }
 }
