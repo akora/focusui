@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusUI - Redirecting to Demo</title>
     <!-- TODO: Replace this redirect page with main site content when ready -->
-    <meta http-equiv="refresh" content="3; url=/demo/">
+    <!-- Meta refresh disabled to allow JavaScript countdown -->
+    <!-- <meta http-equiv="refresh" content="3; url=/demo/"> -->
     <link rel="canonical" href="/demo/">
     <style>
         body {
@@ -57,27 +58,36 @@
     </div>
     
     <script>
-        // Wait for DOM to be ready
-        document.addEventListener('DOMContentLoaded', function() {
+        // Start countdown immediately when script loads
+        (function() {
             let count = 3;
-            const countdownElement = document.getElementById('countdown');
+            
+            function updateCountdown() {
+                const countdownElement = document.getElementById('countdown');
+                if (countdownElement) {
+                    countdownElement.textContent = count;
+                }
+            }
             
             // Update countdown every second
             const timer = setInterval(() => {
                 count--;
-                if (count >= 0) {
-                    countdownElement.textContent = count;
-                }
-                if (count <= 0) {
+                updateCountdown();
+                
+                if (count < 0) {
                     clearInterval(timer);
+                    // Redirect to demo
+                    window.location.href = '/demo/';
                 }
             }, 1000);
             
-            // Fallback redirect in case meta refresh doesn't work
-            setTimeout(() => {
-                window.location.href = '/demo/';
-            }, 3000);
-        });
+            // Ensure DOM is ready for initial update
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', updateCountdown);
+            } else {
+                updateCountdown();
+            }
+        })();
     </script>
 </body>
 </html>
