@@ -609,6 +609,6 @@ body {
     }
 
     .center-area {
-        bottom: 9vh !important; /* Adjust for 1vh drawer position */
+        bottom: 9.5vh !important; /* Adjust for 1.5vh drawer position */
     }
 }
