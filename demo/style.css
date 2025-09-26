@@ -547,4 +547,35 @@ body {
         height: 80px;
         max-height: 20vh; /* More space for icons on mobile */
     }
+    
+    /* iPad Chrome specific fixes */
+    .drawer-bottom {
+        bottom: max(8px, env(safe-area-inset-bottom, 8px));
+        /* Ensure bottom drawer is above browser UI */
+        min-height: 40px;
+    }
+    
+    /* Adjust center area for safe areas on mobile */
+    .center-area {
+        bottom: max(48px, calc(48px + env(safe-area-inset-bottom, 0px)));
+    }
+}
+
+/* iPad specific media query */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .drawer-bottom {
+        bottom: max(16px, env(safe-area-inset-bottom, 16px));
+        /* Extra padding for iPad Chrome browser UI */
+        z-index: 1000;
+    }
+    
+    .drawer-bottom.expanded {
+        height: 80px;
+        max-height: 18vh;
+    }
+    
+    /* Ensure center area doesn't overlap with bottom drawer */
+    .center-area {
+        bottom: max(56px, calc(56px + env(safe-area-inset-bottom, 0px)));
+    }
 }
