@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FocusUI - Redirecting to Demo</title>
     <!-- TODO: Replace this redirect page with main site content when ready -->
-    <!-- Meta refresh disabled to allow JavaScript countdown -->
-    <!-- <meta http-equiv="refresh" content="3; url=/demo/"> -->
+    <meta http-equiv="refresh" content="3; url=/demo/">
     <link rel="canonical" href="/demo/">
     <style>
         body {
@@ -58,36 +57,24 @@
     </div>
     
     <script>
-        // Start countdown immediately when script loads
-        (function() {
-            let count = 3;
-            
-            function updateCountdown() {
-                const countdownElement = document.getElementById('countdown');
-                if (countdownElement) {
-                    countdownElement.textContent = count;
-                }
+        // Simple countdown display - let meta refresh handle redirect
+        let count = 3;
+        
+        // Start countdown after a brief delay to ensure DOM is ready
+        setTimeout(() => {
+            const countdownElement = document.getElementById('countdown');
+            if (countdownElement) {
+                const timer = setInterval(() => {
+                    count--;
+                    if (count >= 0) {
+                        countdownElement.textContent = count;
+                    }
+                    if (count < 0) {
+                        clearInterval(timer);
+                    }
+                }, 1000);
             }
-            
-            // Update countdown every second
-            const timer = setInterval(() => {
-                count--;
-                updateCountdown();
-                
-                if (count < 0) {
-                    clearInterval(timer);
-                    // Redirect to demo
-                    window.location.href = '/demo/';
-                }
-            }, 1000);
-            
-            // Ensure DOM is ready for initial update
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', updateCountdown);
-            } else {
-                updateCountdown();
-            }
-        })();
+        }, 100);
     </script>
 </body>
 </html>
