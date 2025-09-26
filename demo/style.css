@@ -568,10 +568,10 @@ body {
     }
 }
 
-/* Final iPad bottom drawer styling - production ready */
+/* Final iPad bottom drawer styling - optimized positioning */
 @media (min-device-width: 768px) {
     .drawer-bottom {
-        /* Clean glass styling without debug colors */
+        /* Clean glass styling */
         background: linear-gradient(135deg,
             rgba(255, 255, 255, 0.4) 0%,
             rgba(255, 255, 255, 0.2) 50%,
@@ -579,8 +579,8 @@ body {
         backdrop-filter: blur(16px) saturate(1.4);
         -webkit-backdrop-filter: blur(16px) saturate(1.4);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        /* Optimal positioning for iPad */
-        bottom: 12vh !important;
+        /* Optimized positioning - closer to bottom but still safe */
+        bottom: 6vh !important;
         position: fixed !important;
         z-index: 99999 !important;
         min-height: 40px;
@@ -593,7 +593,7 @@ body {
     .drawer-bottom.expanded {
         height: 80px !important;
         max-height: 15vh !important;
-        bottom: 12vh !important;
+        bottom: 6vh !important;
         background: linear-gradient(135deg,
             rgba(255, 255, 255, 0.3) 0%,
             rgba(255, 255, 255, 0.15) 50%,
@@ -609,6 +609,6 @@ body {
     }
 
     .center-area {
-        bottom: 20vh !important; /* Adjust for optimal drawer position */
+        bottom: 14vh !important; /* Adjust for optimized drawer position */
     }
 }
