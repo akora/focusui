@@ -45,17 +45,26 @@
     Content-Security-Policy = "default-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; script-src 'self'"
 
 [[headers]]
-  # Cache static assets - reduced cache time for development
+  # Cache static assets - very short cache for development
   for = "/demo/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=3600"  # 1 hour instead of 1 year
+    Cache-Control = "public, max-age=300"  # 5 minutes for rapid development
 
 [[headers]]
   for = "/demo/*.js"
   [headers.values]
-    Cache-Control = "public, max-age=3600"  # 1 hour instead of 1 year
+    Cache-Control = "public, max-age=300"  # 5 minutes for rapid development
 
 [[headers]]
-  for = "/demo/*.png"
+  # Force cache revalidation for CSS during development
+  for = "/demo/style.css"
   [headers.values]
-    Cache-Control = "public, max-age=31536000"
+    Cache-Control = "public, max-age=300, must-revalidate"
+    Pragma = "no-cache"
+
+[[headers]]
+  # Force cache revalidation for HTML during development
+  for = "/demo/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+    Pragma = "no-cache"
