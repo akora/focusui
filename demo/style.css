@@ -568,27 +568,29 @@ body {
     }
 }
 
-/* iPad specific fix - use percentage-based positioning for dynamic viewport */
+/* iPad specific fix - more aggressive universal approach */
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .drawer-bottom {
-        /* Use percentage positioning that adapts to viewport changes */
-        bottom: 2vh !important;
-        /* Ensure visibility with minimum safe distance */
-        min-height: 40px;
-        z-index: 1000;
-        /* Use fixed positioning to stay above dynamic content */
+        /* Much more aggressive positioning - move drawer higher up */
+        bottom: 10vh !important;
+        /* Force fixed positioning */
         position: fixed !important;
+        z-index: 9999 !important;
+        min-height: 40px;
+        /* Add visual debugging */
+        background: rgba(255, 0, 0, 0.3) !important; /* Temporary red background for debugging */
     }
     
     .drawer-bottom.expanded {
-        height: 80px;
-        max-height: 12vh; /* Smaller max-height for iPad */
-        bottom: 2vh !important;
+        height: 60px !important; /* Smaller height */
+        max-height: 8vh !important;
+        bottom: 10vh !important;
+        background: rgba(255, 0, 0, 0.5) !important; /* More visible when expanded */
     }
     
-    /* Adjust center area with percentage-based spacing */
+    /* Move center area much higher to accommodate */
     .center-area {
-        bottom: 8vh; /* Percentage-based spacing that adapts to viewport */
+        bottom: 18vh !important; /* Much more space */
     }
 }
 
@@ -609,25 +611,45 @@ body {
     }
 }
 
-/* JavaScript-detected iPad Chrome/Safari - percentage-based approach */
+/* JavaScript-detected iPad Chrome/Safari - most aggressive approach */
 .ipad-chrome .drawer-bottom,
 body.ipad-safari .drawer-bottom {
-    /* Use viewport units that adapt to dynamic UI changes */
-    bottom: 4vh !important;
+    /* Very aggressive positioning with visual debugging */
+    bottom: 15vh !important;
     position: fixed !important;
-    z-index: 9999 !important;
-    /* Ensure minimum visibility */
+    z-index: 99999 !important;
     min-height: 40px;
+    /* Bright debugging background */
+    background: rgba(0, 255, 0, 0.5) !important; /* Green for JS-detected iPads */
+    border: 3px solid lime !important; /* Highly visible border */
 }
 
 .ipad-chrome .drawer-bottom.expanded,
 body.ipad-safari .drawer-bottom.expanded {
-    bottom: 4vh !important;
-    height: 60px !important;
-    max-height: 8vh !important; /* Constrain height for visibility */
+    bottom: 15vh !important;
+    height: 50px !important;
+    max-height: 6vh !important;
+    background: rgba(0, 255, 0, 0.7) !important;
 }
 
 .ipad-chrome .center-area,
 body.ipad-safari .center-area {
-    bottom: 12vh !important; /* Adaptive spacing */
+    bottom: 25vh !important; /* Much more space */
+}
+
+/* Universal iPad fallback - catches any iPad we might have missed */
+@supports (-webkit-touch-callout: none) {
+    @media (pointer: coarse) and (min-device-width: 768px) {
+        .drawer-bottom {
+            bottom: 20vh !important;
+            position: fixed !important;
+            z-index: 99999 !important;
+            background: rgba(0, 0, 255, 0.5) !important; /* Blue for universal fallback */
+            border: 2px solid blue !important;
+        }
+        
+        .center-area {
+            bottom: 30vh !important;
+        }
+    }
 }
