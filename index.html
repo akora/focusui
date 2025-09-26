@@ -3,71 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FocusUI - Prototype</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>FocusUI - Redirecting to Demo</title>
+    <!-- TODO: Replace this redirect page with main site content when ready -->
+    <meta http-equiv="refresh" content="0; url=/demo/">
+    <link rel="canonical" href="/demo/">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .redirect-container {
+            max-width: 400px;
+            padding: 2rem;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .message {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        .manual-link {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .manual-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-    <div class="app">
-        <!-- Center Area (background) -->
-        <div class="center-area">
-            <div class="logo-container">
-                <img src="FocusUI-eventhorizon.png" alt="FocusUI by eventhorizon" class="focusui-logo">
-            </div>
-        </div>
-        
-        <!-- Top Drawer -->
-        <div class="drawer drawer-top" id="drawer-top">
-            <div class="drawer-handle"></div>
-        </div>
-        
-        <!-- Left Drawer -->
-        <div class="drawer drawer-left" id="drawer-left">
-            <div class="drawer-handle"></div>
-            <div class="drawer-content">
-                <div class="icon social-icon"><i class="fa-brands fa-x-twitter"></i></div>
-                <div class="icon social-icon"><i class="fa-brands fa-linkedin"></i></div>
-                <div class="icon social-icon"><i class="fa-brands fa-facebook"></i></div>
-                <div class="icon social-icon"><i class="fa-brands fa-bluesky"></i></div>
-                <div class="icon social-icon"><i class="fa-brands fa-mastodon"></i></div>
-                <div class="icon social-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                <!-- Secondary drawer trigger -->
-                <div class="icon secondary-trigger" id="secondary-trigger">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Secondary Drawer - Independent element -->
-        <div class="secondary-drawer" id="secondary-drawer">
-            <div class="secondary-drawer-content">
-                <!-- High importance - Red zone -->
-                <div class="icon social-icon importance-high"><i class="fa-brands fa-x-twitter"></i></div>
-                <div class="icon social-icon importance-high"><i class="fa-brands fa-linkedin"></i></div>
-                
-                <!-- Medium-high importance - Orange zone -->
-                <div class="icon social-icon importance-medium-high"><i class="fa-brands fa-whatsapp"></i></div>
-                
-                <!-- Medium importance - Yellow zone -->
-                <div class="icon social-icon importance-medium"><i class="fa-brands fa-facebook"></i></div>
-                
-                <!-- Low importance - Blue zone -->
-                <div class="icon social-icon importance-low"><i class="fa-brands fa-bluesky"></i></div>
-                <div class="icon social-icon importance-low"><i class="fa-brands fa-mastodon"></i></div>
-            </div>
-        </div>
-        
-        <!-- Right Drawer -->
-        <div class="drawer drawer-right" id="drawer-right">
-            <div class="drawer-handle"></div>
-        </div>
-        
-        <!-- Bottom Drawer -->
-        <div class="drawer drawer-bottom" id="drawer-bottom">
-            <div class="drawer-handle"></div>
-        </div>
+    <div class="redirect-container">
+        <div class="logo">FocusUI</div>
+        <div class="message">Redirecting to demo...</div>
+        <a href="/demo/" class="manual-link">Go to Demo</a>
     </div>
-
-    <script src="script.js"></script>
+    
+    <script>
+        // Fallback redirect in case meta refresh doesn't work
+        setTimeout(() => {
+            window.location.href = '/demo/';
+        }, 1000);
+    </script>
 </body>
 </html>

@@ -1,0 +1,5 @@
+# Redirect root to demo
+/  /demo/  302
+
+# Handle demo SPA routing
+/demo/*  /demo/index.html  200
