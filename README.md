@@ -1,6 +1,6 @@
-# Focus UI
+# FocusUI
 
-Focus UI is a new type of web interface that allows users to focus on the important content and actions while minimizing distractions and clutter. It is designed to be simple, intuitive, and easy to use, with a focus on accessibility and inclusivity. It is built on top of the latest web technologies and is compatible with all modern browsers.
+FocusUI is a new type of web interface that allows users to focus on the important content and actions while minimizing distractions and clutter. It is designed to be simple, intuitive, and easy to use, with a focus on accessibility and inclusivity. It is built on top of the latest web technologies and is compatible with all modern browsers.
 
 ## Design Philosophy
 
@@ -12,11 +12,11 @@ There are no menus, the interaction in the middle section is based on the actual
 
 ### Current Working Interface
 
-Focus UI has been implemented with a beautiful glass morphism design and advanced drawer system:
+FocusUI has been implemented with a beautiful glass morphism design and advanced drawer system:
 
 #### Base Interface with Glass Effects
 
-![Focus UI base interface with glass morphism effects](screenshots/Dev_local_focusui_index.html-001.png)
+![FocusUI base interface with glass morphism effects](screenshots/Dev_local_focusui_index.html-001.png)
 
 Clean, minimalist interface featuring glass morphism drawers with backdrop blur effects and subtle transparency.
 
