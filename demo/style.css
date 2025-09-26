@@ -568,26 +568,47 @@ body {
     }
 }
 
-/* Keep the working detection but adjust positioning */
+/* Final iPad bottom drawer styling - production ready */
 @media (min-device-width: 768px) {
     .drawer-bottom {
-        /* Blue background (working detection) */
-        background: rgba(0, 0, 255, 0.8) !important;
-        border: 3px solid blue !important;
-        /* Position higher for better accessibility */
-        bottom: 15vh !important;
+        /* Clean glass styling without debug colors */
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(0, 0, 0, 0.1) 100%);
+        backdrop-filter: blur(16px) saturate(1.4);
+        -webkit-backdrop-filter: blur(16px) saturate(1.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Optimal positioning for iPad */
+        bottom: 12vh !important;
         position: fixed !important;
         z-index: 99999 !important;
         min-height: 40px;
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
     .drawer-bottom.expanded {
-        height: 60px !important;
-        bottom: 15vh !important;
-        background: rgba(0, 0, 255, 1) !important;
+        height: 80px !important;
+        max-height: 15vh !important;
+        bottom: 12vh !important;
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(0, 0, 0, 0.05) 100%);
+        backdrop-filter: blur(20px) saturate(1.6);
+        -webkit-backdrop-filter: blur(20px) saturate(1.6);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.15),
+            0 4px 16px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.05);
     }
 
     .center-area {
-        bottom: 25vh !important; /* Adjust for new drawer position */
+        bottom: 20vh !important; /* Adjust for optimal drawer position */
     }
 }
