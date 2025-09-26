@@ -568,56 +568,66 @@ body {
     }
 }
 
-/* iPad specific media query - more aggressive fix */
+/* iPad specific fix - use percentage-based positioning for dynamic viewport */
 @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .drawer-bottom {
-        bottom: 60px !important;
-        /* Much larger bottom offset for iPad Chrome UI */
-        z-index: 1000;
+        /* Use percentage positioning that adapts to viewport changes */
+        bottom: 2vh !important;
+        /* Ensure visibility with minimum safe distance */
         min-height: 40px;
+        z-index: 1000;
+        /* Use fixed positioning to stay above dynamic content */
+        position: fixed !important;
     }
     
     .drawer-bottom.expanded {
         height: 80px;
-        max-height: 18vh;
-        bottom: 60px !important;
+        max-height: 12vh; /* Smaller max-height for iPad */
+        bottom: 2vh !important;
     }
     
-    /* Ensure center area doesn't overlap with bottom drawer */
+    /* Adjust center area with percentage-based spacing */
     .center-area {
-        bottom: 108px; /* 60px drawer offset + 40px drawer height + 8px gap */
+        bottom: 8vh; /* Percentage-based spacing that adapts to viewport */
     }
 }
 
-/* Additional fix for iPad Chrome specifically */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+/* Enhanced iPad detection - covers all iPad variants */
+@media screen and (min-device-width: 768px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1) {
     .drawer-bottom {
-        bottom: 80px !important;
-        /* Even larger offset for Retina iPads */
+        bottom: 3vh !important; /* Slightly more margin for older iPads */
+        position: fixed !important;
     }
     
     .drawer-bottom.expanded {
-        bottom: 80px !important;
+        bottom: 3vh !important;
+        max-height: 10vh;
     }
     
     .center-area {
-        bottom: 128px; /* 80px + 40px + 8px */
+        bottom: 9vh !important;
     }
 }
 
-/* JavaScript-detected iPad Chrome specific overrides */
-.ipad-chrome .drawer-bottom {
-    bottom: 100px !important;
-    /* Maximum offset for iPad Chrome UI */
+/* JavaScript-detected iPad Chrome/Safari - percentage-based approach */
+.ipad-chrome .drawer-bottom,
+body.ipad-safari .drawer-bottom {
+    /* Use viewport units that adapt to dynamic UI changes */
+    bottom: 4vh !important;
     position: fixed !important;
     z-index: 9999 !important;
+    /* Ensure minimum visibility */
+    min-height: 40px;
 }
 
-.ipad-chrome .drawer-bottom.expanded {
-    bottom: 100px !important;
-    height: 60px !important; /* Smaller height to ensure visibility */
+.ipad-chrome .drawer-bottom.expanded,
+body.ipad-safari .drawer-bottom.expanded {
+    bottom: 4vh !important;
+    height: 60px !important;
+    max-height: 8vh !important; /* Constrain height for visibility */
 }
 
-.ipad-chrome .center-area {
-    bottom: 168px !important; /* 100px + 60px + 8px */
+.ipad-chrome .center-area,
+body.ipad-safari .center-area {
+    bottom: 12vh !important; /* Adaptive spacing */
 }
