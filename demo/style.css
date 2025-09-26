@@ -16,7 +16,7 @@ body {
     height: 100vh;
     width: 100vw;
     padding: 8px;
-    background: linear-gradient(to bottom right, #64748b 0%, #94a3b8 25%, #cbd5e1 50%, #e2e8f0 75%, #f8fafc 100%);
+    background: linear-gradient(to bottom right, #475569 0%, #64748b 25%, #94a3b8 50%, #cbd5e1 75%, #e2e8f0 100%);
     background-attachment: fixed;
 }
 
@@ -67,12 +67,15 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     cursor: pointer;
-    z-index: 10;
+    z-index: 15; /* Unified z-index for all main drawers - higher than secondary drawer */
     isolation: isolate; /* Create isolated stacking context */
     box-shadow: 
         0 4px 16px rgba(0, 0, 0, 0.1),
         0 2px 8px rgba(0, 0, 0, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    /* Remove default browser focus/active states */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .drawer:hover {
@@ -88,6 +91,23 @@ body {
         0 3px 12px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     transform: translateY(-1px);
+}
+
+/* Custom focus and active states to replace browser defaults */
+.drawer:focus,
+.drawer:active {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.45) 0%, 
+        rgba(255, 255, 255, 0.25) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    outline: none;
 }
 
 /* Drawer handle (subtle visual indicator) with glass effect */
@@ -220,8 +240,9 @@ body {
 /* Top drawer */
 .drawer-top {
     top: 8px;
-    left: 8px;
-    right: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75vw; /* 75% of viewport width for shorter, centered drawer */
     height: 40px;
     /* Curved shape: sharp top edges, curved bottom (toward center) */
     border-radius: 0 0 50% 50%;
@@ -230,6 +251,9 @@ body {
 .drawer-top.expanded {
     height: 80px;
     max-height: 15vh; /* Limit to 15% of viewport height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75vw;
 }
 
 /* Bottom drawer */
@@ -239,19 +263,22 @@ body {
 .drawer-bottom {
     position: absolute;
     bottom: 8px;
-    left: 8px;
-    right: 8px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0); /* Center alignment + hardware acceleration */
+    width: 75vw; /* 75% of viewport width for shorter, centered drawer */
     height: 40px;
     /* Curved shape: curved top (toward center), sharp bottom edges */
     border-radius: 50% 50% 0 0;
     /* Ensure visibility on all devices */
     min-height: 40px;
-    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .drawer-bottom.expanded {
     height: 80px;
     max-height: 15vh; /* Limit to 15% of viewport height */
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 75vw;
 }
 
 .drawer-top .drawer-handle,
@@ -269,6 +296,19 @@ body {
 
 .drawer-bottom .drawer-handle {
     top: 8px;
+}
+
+/* Ensure horizontal drawers maintain center alignment on hover */
+.drawer-top:hover {
+    left: 50%;
+    transform: translateX(-50%) translateY(-1px); /* Combine centering with hover lift */
+    width: 75vw;
+}
+
+.drawer-bottom:hover {
+    left: 50%;
+    transform: translateX(-50%) translateY(-1px) translateZ(0); /* Combine centering with hover lift */
+    width: 75vw;
 }
 
 /* Left drawer */
@@ -393,7 +433,7 @@ body {
     backdrop-filter: blur(16px) saturate(1.4);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 5; /* Lower than primary drawer's z-index: 10 */
+    z-index: 5; /* Lower than primary drawer's z-index: 15 */
     box-shadow: 
         0 6px 24px rgba(0, 0, 0, 0.15),
         0 3px 12px rgba(0, 0, 0, 0.08),
@@ -401,10 +441,7 @@ body {
 }
 
 
-/* Keep primary drawer z-index high when secondary drawer is active */
-.drawer-left.secondary-active {
-    z-index: 100 !important; /* Force primary drawer to stay on top */
-}
+/* Primary drawers maintain unified z-index - no special override needed */
 
 /* Hide the handle on left drawer when secondary drawer is expanded */
 .drawer-left.secondary-active .drawer-handle {
@@ -568,7 +605,7 @@ body {
     }
 }
 
-/* Final iPad bottom drawer styling - optimized positioning */
+    /* Final iPad bottom drawer styling - optimized positioning */
 @media (min-device-width: 768px) {
     .drawer-bottom {
         /* Clean glass styling */
@@ -579,8 +616,11 @@ body {
         backdrop-filter: blur(16px) saturate(1.4);
         -webkit-backdrop-filter: blur(16px) saturate(1.4);
         border: 1px solid rgba(255, 255, 255, 0.2);
-        /* Final positioning - very close to bottom */
+        /* Final positioning - very close to bottom with center alignment */
         bottom: 1vh !important;
+        left: 50% !important;
+        transform: translateX(-50%) translateZ(0) !important;
+        width: 75vw !important; /* Shorter, centered drawer */
         position: fixed !important;
         z-index: 99999 !important;
         min-height: 40px;
