@@ -60,8 +60,8 @@
         // Simple countdown display - let meta refresh handle redirect
         let count = 3;
         
-        // Start countdown after a brief delay to ensure DOM is ready
-        setTimeout(() => {
+        // Ensure DOM is fully loaded before starting countdown
+        function startCountdown() {
             const countdownElement = document.getElementById('countdown');
             if (countdownElement) {
                 const timer = setInterval(() => {
@@ -74,7 +74,15 @@
                     }
                 }, 1000);
             }
-        }, 100);
+        }
+        
+        // Use multiple methods to ensure DOM readiness
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startCountdown);
+        } else {
+            // DOM is already ready
+            startCountdown();
+        }
     </script>
 </body>
 </html>
