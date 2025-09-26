@@ -568,62 +568,44 @@ body {
     }
 }
 
-/* Universal iPad fix - catch ALL iPad-like devices */
-@media (pointer: coarse) and (min-device-width: 768px) {
+/* Debug: Apply to ALL devices first to see if CSS is working at all */
+.drawer-bottom {
+    /* Force visibility on ALL devices to test if CSS is loading */
+    background: rgba(255, 255, 0, 0.8) !important; /* Bright yellow for ALL devices */
+    border: 3px solid yellow !important;
+    bottom: 20vh !important;
+    position: fixed !important;
+    z-index: 999999 !important;
+    min-height: 40px;
+}
+
+.drawer-bottom.expanded {
+    background: rgba(255, 255, 0, 1) !important; /* Solid yellow when expanded */
+    height: 60px !important;
+}
+
+.center-area {
+    bottom: 30vh !important; /* Make room for debug drawer */
+}
+
+/* Then override with specific colors if media queries work */
+@media (min-width: 768px) {
     .drawer-bottom {
-        /* Universal positioning for any tablet-like device */
-        bottom: 8vh !important;
-        position: fixed !important;
-        z-index: 99999 !important;
-        min-height: 40px;
-        /* Bright purple background for universal detection */
-        background: rgba(128, 0, 128, 0.6) !important; /* Purple for universal */
-        border: 3px solid magenta !important;
-    }
-
-    .drawer-bottom.expanded {
-        height: 60px !important;
-        max-height: 8vh !important;
-        bottom: 8vh !important;
-        background: rgba(128, 0, 128, 0.8) !important;
-    }
-
-    .center-area {
-        bottom: 16vh !important; /* Adjust for new drawer position */
+        background: rgba(255, 0, 0, 0.8) !important; /* Red for tablets */
+        border: 3px solid red !important;
     }
 }
 
-/* Even more universal - catch any device that might be an iPad */
-@media (min-device-width: 768px) and (max-device-width: 1366px) {
+@media (pointer: coarse) {
     .drawer-bottom {
-        bottom: 12vh !important;
-        position: fixed !important;
-        z-index: 99999 !important;
-        background: rgba(255, 165, 0, 0.6) !important; /* Orange for broad detection */
-        border: 2px solid orange !important;
-    }
-
-    .center-area {
-        bottom: 20vh !important;
+        background: rgba(0, 255, 0, 0.8) !important; /* Green for touch devices */
+        border: 3px solid green !important;
     }
 }
 
-/* Absolute fallback - any touch device with reasonable screen size */
-@media (pointer: coarse) and (min-width: 768px) and (max-width: 1366px) {
+@media (min-device-width: 768px) {
     .drawer-bottom {
-        bottom: 6vh !important;
-        position: fixed !important;
-        z-index: 99999 !important;
-        background: rgba(255, 0, 255, 0.6) !important; /* Magenta for fallback */
-        border: 3px solid fuchsia !important;
-    }
-
-    .drawer-bottom.expanded {
-        height: 50px !important;
-        bottom: 6vh !important;
-    }
-
-    .center-area {
-        bottom: 14vh !important;
+        background: rgba(0, 0, 255, 0.8) !important; /* Blue for iPad-like devices */
+        border: 3px solid blue !important;
     }
 }
