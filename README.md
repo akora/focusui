@@ -1,18 +1,18 @@
 # FocusUI
 
-FocusUI is a new type of web interface that allows users to focus on the important content and actions while minimizing distractions and clutter. It is designed to be simple, intuitive, and easy to use, with a focus on accessibility and inclusivity. It is built on top of the latest web technologies and is compatible with all modern browsers.
+FocusUI is a new type of web interface that allows users to focus on the most important content and immediate actions of the moment while minimizing distractions and clutter. It is designed to be simple, intuitive, and easy to use. It is built on top of the latest web technologies and is compatible with all modern browsers.
 
 ## Design Philosophy
 
-The entire interface follows a left-to-right user journey approach (this can be adjusted later): on the left hand side there are all the input streams, on the right hand side there are all the output streams, and in the middle there is the main action area.
+The entire interface follows a left-to-right user journey approach (this can be adjusted later): on the left hand side there are all the input streams, on the right hand side there are all the output streams, and in the middle there is the main focus area.
 
-There are no menus, the interaction in the middle section is based on the actual content that's being displayed.
+There are no menus, the interaction is taking place in the middle section, based on the actual content that's being displayed.
 
 ## Live Implementation Screenshots
 
 ### Current Working Interface
 
-FocusUI has been implemented with a beautiful glass morphism design and advanced drawer system:
+FocusUI has been implemented with a beautiful glass morphism design and advanced drawer system.
 
 #### Base Interface with Glass Effects
 
@@ -34,7 +34,7 @@ Advanced dual drawer system with proper z-index layering, where the secondary dr
 
 ## Concept Evolution
 
-The design concepts in the `concepts/` folder demonstrate a systematic exploration of drawer-based navigation layouts:
+The design concepts in the `concepts/` folder demonstrate a systematic exploration of drawer-based navigation layouts.
 
 ### Basic Layout Concepts (001-006)
 
@@ -45,7 +45,7 @@ The design concepts in the `concepts/` folder demonstrate a systematic explorati
 - **Concept 005**: Four-panel layout (left + right + top + bottom)
 - **Concept 006**: Expanded left drawer demonstration
 
-As the data from the various sources gets streamed, their relevance and importance are calculated.
+As the content from the various sources gets streamed, their relevance and importance are calculated.
 
 ![Concept 010](concepts/FocusUI-concept-010-incoming-sources-expanded.png)
 
@@ -53,7 +53,7 @@ Only the most important sources are displayed in the second, extended drawer.
 
 ![Concept 010](concepts/FocusUI-concept-010-incoming-sources-expanded-importance.png)
 
-...and, as part of the first prototype:
+As part of the first prototype, it looks like this:
 
 ![Color gradient zones](screenshots/Dev_local_focusui_index.html-004.png)
 
@@ -61,7 +61,7 @@ Only the most important sources are displayed in the second, extended drawer.
 
 The final concepts show actual functionality with populated sidebars:
 
-- **010-incoming-sources-expanded**: Fully populated left sidebar featuring various application icons for communication, productivity, and file management tools
+- **010-incoming-sources-expanded**: Fully populated left sidebar (aka "primary drawer") featuring various application icons for communication and productivity tools
 - **010-incoming-sources-expanded-importance**: Same layout with visual priority indicators using color coding (orange/red gradient) to highlight important sources
 
 ### Key Design Principles
@@ -96,3 +96,20 @@ The final concepts show actual functionality with populated sidebars:
 - Optimize bundle size and loading performance
 - Add advanced animations and micro-interactions
 - Implement comprehensive testing suite
+
+## Intellectual Property & Concept Origin
+
+**Original Concept**: FocusUI concept and design philosophy created by **András Kora**
+
+**Timestamped Proof**: This concept has been officially timestamped and certified through EU TSA (Trusted Service Authority) on **December 13, 2020 at 13:53:42 UTC**, providing cryptographic proof of the original creation date and authorship.
+
+**Certificate Details**:
+
+- EU TSA Certificate ID: `1d4b78b7f3d3-44ce-9f4e-1f9d6507d6d2`
+- Project ID: `85de744b-f2ed-4da7-810b-124bc0924d04`
+- Registration Authority: Cryptolog International
+- Status: CONFIRMED
+
+The core ideas, design patterns, and implementation approach documented in this repository represent original intellectual property with verifiable timestamp certification predating similar concepts in the industry.
+
+© 2025 András Kora / FocusUI. All rights reserved.
