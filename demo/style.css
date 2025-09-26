@@ -568,44 +568,26 @@ body {
     }
 }
 
-/* Debug: Apply to ALL devices first to see if CSS is working at all */
-.drawer-bottom {
-    /* Force visibility on ALL devices to test if CSS is loading */
-    background: rgba(255, 255, 0, 0.8) !important; /* Bright yellow for ALL devices */
-    border: 3px solid yellow !important;
-    bottom: 20vh !important;
-    position: fixed !important;
-    z-index: 999999 !important;
-    min-height: 40px;
-}
-
-.drawer-bottom.expanded {
-    background: rgba(255, 255, 0, 1) !important; /* Solid yellow when expanded */
-    height: 60px !important;
-}
-
-.center-area {
-    bottom: 30vh !important; /* Make room for debug drawer */
-}
-
-/* Then override with specific colors if media queries work */
-@media (min-width: 768px) {
-    .drawer-bottom {
-        background: rgba(255, 0, 0, 0.8) !important; /* Red for tablets */
-        border: 3px solid red !important;
-    }
-}
-
-@media (pointer: coarse) {
-    .drawer-bottom {
-        background: rgba(0, 255, 0, 0.8) !important; /* Green for touch devices */
-        border: 3px solid green !important;
-    }
-}
-
+/* Keep the working detection but adjust positioning */
 @media (min-device-width: 768px) {
     .drawer-bottom {
-        background: rgba(0, 0, 255, 0.8) !important; /* Blue for iPad-like devices */
+        /* Blue background (working detection) */
+        background: rgba(0, 0, 255, 0.8) !important;
         border: 3px solid blue !important;
+        /* Position higher for better accessibility */
+        bottom: 15vh !important;
+        position: fixed !important;
+        z-index: 99999 !important;
+        min-height: 40px;
+    }
+
+    .drawer-bottom.expanded {
+        height: 60px !important;
+        bottom: 15vh !important;
+        background: rgba(0, 0, 255, 1) !important;
+    }
+
+    .center-area {
+        bottom: 25vh !important; /* Adjust for new drawer position */
     }
 }
