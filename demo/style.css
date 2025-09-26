@@ -233,13 +233,20 @@ body {
 }
 
 /* Bottom drawer */
+/* TODO: CRITICAL BUG - Bottom drawer not visible on iPad devices (Safari & Chrome)
+   Multiple attempted fixes have failed. Need to investigate iPad viewport behavior.
+   See memory for full details of attempted solutions. */
 .drawer-bottom {
+    position: absolute;
     bottom: 8px;
     left: 8px;
     right: 8px;
     height: 40px;
     /* Curved shape: curved top (toward center), sharp bottom edges */
     border-radius: 50% 50% 0 0;
+    /* Ensure visibility on all devices */
+    min-height: 40px;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .drawer-bottom.expanded {
