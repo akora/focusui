@@ -568,88 +568,62 @@ body {
     }
 }
 
-/* iPad specific fix - more aggressive universal approach */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+/* Universal iPad fix - catch ALL iPad-like devices */
+@media (pointer: coarse) and (min-device-width: 768px) {
     .drawer-bottom {
-        /* Much more aggressive positioning - move drawer higher up */
-        bottom: 10vh !important;
-        /* Force fixed positioning */
+        /* Universal positioning for any tablet-like device */
+        bottom: 8vh !important;
         position: fixed !important;
-        z-index: 9999 !important;
+        z-index: 99999 !important;
         min-height: 40px;
-        /* Add visual debugging */
-        background: rgba(255, 0, 0, 0.3) !important; /* Temporary red background for debugging */
+        /* Bright purple background for universal detection */
+        background: rgba(128, 0, 128, 0.6) !important; /* Purple for universal */
+        border: 3px solid magenta !important;
     }
-    
+
     .drawer-bottom.expanded {
-        height: 60px !important; /* Smaller height */
+        height: 60px !important;
         max-height: 8vh !important;
-        bottom: 10vh !important;
-        background: rgba(255, 0, 0, 0.5) !important; /* More visible when expanded */
+        bottom: 8vh !important;
+        background: rgba(128, 0, 128, 0.8) !important;
     }
-    
-    /* Move center area much higher to accommodate */
+
     .center-area {
-        bottom: 18vh !important; /* Much more space */
+        bottom: 16vh !important; /* Adjust for new drawer position */
     }
 }
 
-/* Enhanced iPad detection - covers all iPad variants */
-@media screen and (min-device-width: 768px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1) {
+/* Even more universal - catch any device that might be an iPad */
+@media (min-device-width: 768px) and (max-device-width: 1366px) {
     .drawer-bottom {
-        bottom: 3vh !important; /* Slightly more margin for older iPads */
+        bottom: 12vh !important;
         position: fixed !important;
+        z-index: 99999 !important;
+        background: rgba(255, 165, 0, 0.6) !important; /* Orange for broad detection */
+        border: 2px solid orange !important;
     }
-    
-    .drawer-bottom.expanded {
-        bottom: 3vh !important;
-        max-height: 10vh;
-    }
-    
+
     .center-area {
-        bottom: 9vh !important;
+        bottom: 20vh !important;
     }
 }
 
-/* JavaScript-detected iPad Chrome/Safari - most aggressive approach */
-.ipad-chrome .drawer-bottom,
-body.ipad-safari .drawer-bottom {
-    /* Very aggressive positioning with visual debugging */
-    bottom: 15vh !important;
-    position: fixed !important;
-    z-index: 99999 !important;
-    min-height: 40px;
-    /* Bright debugging background */
-    background: rgba(0, 255, 0, 0.5) !important; /* Green for JS-detected iPads */
-    border: 3px solid lime !important; /* Highly visible border */
-}
+/* Absolute fallback - any touch device with reasonable screen size */
+@media (pointer: coarse) and (min-width: 768px) and (max-width: 1366px) {
+    .drawer-bottom {
+        bottom: 6vh !important;
+        position: fixed !important;
+        z-index: 99999 !important;
+        background: rgba(255, 0, 255, 0.6) !important; /* Magenta for fallback */
+        border: 3px solid fuchsia !important;
+    }
 
-.ipad-chrome .drawer-bottom.expanded,
-body.ipad-safari .drawer-bottom.expanded {
-    bottom: 15vh !important;
-    height: 50px !important;
-    max-height: 6vh !important;
-    background: rgba(0, 255, 0, 0.7) !important;
-}
+    .drawer-bottom.expanded {
+        height: 50px !important;
+        bottom: 6vh !important;
+    }
 
-.ipad-chrome .center-area,
-body.ipad-safari .center-area {
-    bottom: 25vh !important; /* Much more space */
-}
-
-/* Universal iPad fallback - catches any iPad we might have missed */
-@supports (-webkit-touch-callout: none) {
-    @media (pointer: coarse) and (min-device-width: 768px) {
-        .drawer-bottom {
-            bottom: 20vh !important;
-            position: fixed !important;
-            z-index: 99999 !important;
-            background: rgba(0, 0, 255, 0.5) !important; /* Blue for universal fallback */
-            border: 2px solid blue !important;
-        }
-        
-        .center-area {
-            bottom: 30vh !important;
-        }
+    .center-area {
+        bottom: 14vh !important;
     }
 }
