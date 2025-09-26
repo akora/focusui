@@ -561,21 +561,56 @@ body {
     }
 }
 
-/* iPad specific media query */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+/* iPad specific media query - more aggressive fix */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .drawer-bottom {
-        bottom: max(16px, env(safe-area-inset-bottom, 16px));
-        /* Extra padding for iPad Chrome browser UI */
+        bottom: 60px !important;
+        /* Much larger bottom offset for iPad Chrome UI */
         z-index: 1000;
+        min-height: 40px;
     }
     
     .drawer-bottom.expanded {
         height: 80px;
         max-height: 18vh;
+        bottom: 60px !important;
     }
     
     /* Ensure center area doesn't overlap with bottom drawer */
     .center-area {
-        bottom: max(56px, calc(56px + env(safe-area-inset-bottom, 0px)));
+        bottom: 108px; /* 60px drawer offset + 40px drawer height + 8px gap */
     }
+}
+
+/* Additional fix for iPad Chrome specifically */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .drawer-bottom {
+        bottom: 80px !important;
+        /* Even larger offset for Retina iPads */
+    }
+    
+    .drawer-bottom.expanded {
+        bottom: 80px !important;
+    }
+    
+    .center-area {
+        bottom: 128px; /* 80px + 40px + 8px */
+    }
+}
+
+/* JavaScript-detected iPad Chrome specific overrides */
+.ipad-chrome .drawer-bottom {
+    bottom: 100px !important;
+    /* Maximum offset for iPad Chrome UI */
+    position: fixed !important;
+    z-index: 9999 !important;
+}
+
+.ipad-chrome .drawer-bottom.expanded {
+    bottom: 100px !important;
+    height: 60px !important; /* Smaller height to ensure visibility */
+}
+
+.ipad-chrome .center-area {
+    bottom: 168px !important; /* 100px + 60px + 8px */
 }

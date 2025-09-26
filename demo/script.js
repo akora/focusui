@@ -1,5 +1,12 @@
 // Simple drawer toggle functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Detect iPad Chrome and apply specific class
+    const isIPad = /iPad|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+    const isChrome = /Chrome/.test(navigator.userAgent);
+    
+    if (isIPad && isChrome) {
+        document.body.classList.add('ipad-chrome');
+    }
     // Get all drawers and app container
     const app = document.querySelector('.app');
     const drawers = {
