@@ -1,15 +1,80 @@
-// Simple drawer toggle functionality
+// Comprehensive iPad detection
+function detectIPad() {
+    const ua = navigator.userAgent;
+
+    // Check for iPad in user agent string (works for all iPad models)
+    const hasIPadInUA = /iPad/.test(ua);
+
+    // Check for Macintosh + touch (covers iPad Pro models that report as desktop)
+    const isMacWithTouch = /Macintosh/.test(ua) && 'ontouchend' in document;
+
+    // Check for iPad-specific screen dimensions (common iPad sizes)
+    const screenWidth = Math.min(screen.width, screen.height);
+    const screenHeight = Math.max(screen.width, screen.height);
+    const isIPadSize = (
+        // iPad (9.7", 10.2")
+        (screenWidth === 768 && screenHeight === 1024) ||
+        // iPad Air/Mini (10.5", 10.9")
+        (screenWidth === 834 && screenHeight === 1112) ||
+        // iPad Pro 11"
+        (screenWidth === 834 && screenHeight === 1194) ||
+        // iPad Pro 12.9"
+        (screenWidth === 1024 && screenHeight === 1366)
+    );
+
+    // Check for iPad-specific device pixel ratios
+    const isIPadDPR = window.devicePixelRatio === 2 || window.devicePixelRatio === 3;
+
+    // Combined detection (most reliable)
+    const isIPad = hasIPadInUA || (isMacWithTouch && isIPadSize) || (isMacWithTouch && isIPadDPR);
+
+    console.log('iPad Detection Results:', {
+        userAgent: ua,
+        hasIPadInUA,
+        isMacWithTouch,
+        screenSize: `${screenWidth}x${screenHeight}`,
+        isIPadSize,
+        devicePixelRatio: window.devicePixelRatio,
+        isIPadDPR,
+        finalResult: isIPad
+    });
+
+    return isIPad;
+}
+
+// Detect browser type
+function detectBrowser() {
+    const ua = navigator.userAgent;
+
+    // Safari detection (must check before Chrome)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua) && !/CriOS/i.test(ua);
+
+    // Chrome detection
+    const isChrome = /Chrome/.test(ua) && /CriOS/i.test(ua);
+
+    console.log('Browser Detection:', { userAgent: ua, isSafari, isChrome });
+
+    return { isSafari, isChrome };
+}
+
+// Apply iPad-specific classes and styling
 document.addEventListener('DOMContentLoaded', function() {
-    // Detect iPad Chrome/Safari and apply specific classes
-    const isIPad = /iPad|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
-    const isChrome = /Chrome/.test(navigator.userAgent);
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-    
-    if (isIPad && isChrome) {
-        document.body.classList.add('ipad-chrome');
-    } else if (isIPad && isSafari) {
-        document.body.classList.add('ipad-safari');
+    const isIPad = detectIPad();
+    const browser = detectBrowser();
+
+    // Apply detection classes
+    if (isIPad) {
+        document.body.classList.add('is-ipad');
+
+        if (browser.isSafari) {
+            document.body.classList.add('ipad-safari');
+        } else if (browser.isChrome) {
+            document.body.classList.add('ipad-chrome');
+        }
     }
+
+    console.log('Applied classes:', Array.from(document.body.classList));
+
     // Get all drawers and app container
     const app = document.querySelector('.app');
     const drawers = {
