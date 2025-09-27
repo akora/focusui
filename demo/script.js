@@ -1,201 +1,132 @@
-// Comprehensive iPad detection
-function detectIPad() {
-    const ua = navigator.userAgent;
-
-    // Check for iPad in user agent string (works for all iPad models)
-    const hasIPadInUA = /iPad/.test(ua);
-
-    // Check for Macintosh + touch (covers iPad Pro models that report as desktop)
-    const isMacWithTouch = /Macintosh/.test(ua) && 'ontouchend' in document;
-
-    // Check for iPad-specific screen dimensions (common iPad sizes)
-    const screenWidth = Math.min(screen.width, screen.height);
-    const screenHeight = Math.max(screen.width, screen.height);
-    const isIPadSize = (
-        // iPad (9.7", 10.2")
-        (screenWidth === 768 && screenHeight === 1024) ||
-        // iPad Air/Mini (10.5", 10.9")
-        (screenWidth === 834 && screenHeight === 1112) ||
-        // iPad Pro 11"
-        (screenWidth === 834 && screenHeight === 1194) ||
-        // iPad Pro 12.9"
-        (screenWidth === 1024 && screenHeight === 1366)
-    );
-
-    // Check for iPad-specific device pixel ratios
-    const isIPadDPR = window.devicePixelRatio === 2 || window.devicePixelRatio === 3;
-
-    // Combined detection (most reliable)
-    const isIPad = hasIPadInUA || (isMacWithTouch && isIPadSize) || (isMacWithTouch && isIPadDPR);
-
-    console.log('iPad Detection Results:', {
-        userAgent: ua,
-        hasIPadInUA,
-        isMacWithTouch,
-        screenSize: `${screenWidth}x${screenHeight}`,
-        isIPadSize,
-        devicePixelRatio: window.devicePixelRatio,
-        isIPadDPR,
-        finalResult: isIPad
-    });
-
-    return isIPad;
-}
-
-// Detect browser type
-function detectBrowser() {
-    const ua = navigator.userAgent;
-
-    // Safari detection (must check before Chrome)
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua) && !/CriOS/i.test(ua);
-
-    // Chrome detection
-    const isChrome = /Chrome/.test(ua) && /CriOS/i.test(ua);
-
-    console.log('Browser Detection:', { userAgent: ua, isSafari, isChrome });
-
-    return { isSafari, isChrome };
-}
-
-// Apply iPad-specific classes and styling
+// Clean production drawer functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const isIPad = detectIPad();
-    const browser = detectBrowser();
+    // Optional: Create hidden indicator for debugging (invisible by default)
+    var indicator = document.createElement('div');
+    indicator.id = 'js-indicator';
+    indicator.style.cssText = 'position: fixed; top: 10px; right: 10px; background: green; color: white; padding: 10px; z-index: 10000; font-size: 12px; border-radius: 5px; display: none;';
+    indicator.textContent = 'JS LOADED';
+    document.body.appendChild(indicator);
 
-    // Apply detection classes
+    // iPad detection and positioning
+    var ua = navigator.userAgent;
+    var isIPad = ua.indexOf('iPad') !== -1 || (ua.indexOf('Macintosh') !== -1 && 'ontouchend' in document);
+    var isChrome = ua.indexOf('Chrome') !== -1;
+    var isSafari = ua.indexOf('Safari') !== -1 && ua.indexOf('Chrome') === -1;
+
     if (isIPad) {
-        document.body.classList.add('is-ipad');
-
-        if (browser.isSafari) {
-            document.body.classList.add('ipad-safari');
-        } else if (browser.isChrome) {
-            document.body.classList.add('ipad-chrome');
-        }
+        // iPad detected - apply alignment fixes silently
+        setTimeout(function() {
+            var vh = window.innerHeight;
+            var topOffset = Math.round(vh * 0.14);
+            var measuredHeight = Math.round(vh - topOffset * 2);
+            
+            // Force secondary drawer to match left drawer positioning exactly
+            var leftDrawer = document.getElementById('drawer-left');
+            var secondaryDrawer = document.getElementById('secondary-drawer');
+            
+            if (leftDrawer && secondaryDrawer) {
+                // Get the computed position of the left drawer
+                var leftRect = leftDrawer.getBoundingClientRect();
+                var leftTop = leftRect.top;
+                
+                // Chrome on iPad needs different alignment approach
+                if (isChrome) {
+                    // For Chrome, use the computed style top value instead of getBoundingClientRect
+                    var computedStyle = window.getComputedStyle(leftDrawer);
+                    var computedTop = computedStyle.top;
+                    
+                    secondaryDrawer.style.setProperty('top', computedTop, 'important');
+                    secondaryDrawer.style.setProperty('transform', 'translateY(-50%) translateX(-100%)', 'important');
+                    
+                    // Chrome iPad alignment applied
+                } else {
+                    // Safari approach - use getBoundingClientRect
+                    secondaryDrawer.style.setProperty('top', leftTop + 'px', 'important');
+                    secondaryDrawer.style.setProperty('transform', 'translateX(-100%)', 'important');
+                    
+                    // Safari iPad alignment applied
+                }
+            } else {
+                // iPad layout ready
+            }
+            
+            // Alignment complete
+        }, 250);
+    } else {
+        // Desktop mode - no special handling needed
     }
 
-    console.log('Applied classes:', Array.from(document.body.classList));
-
-    // Get all drawers and app container
-    const app = document.querySelector('.app');
-    const drawers = {
-        left: document.getElementById('drawer-left'),
-        right: document.getElementById('drawer-right'),
-        top: document.getElementById('drawer-top'),
-        bottom: document.getElementById('drawer-bottom')
-    };
-
-    // Get secondary drawer elements
-    const secondaryDrawer = document.getElementById('secondary-drawer');
-    const secondaryTrigger = document.getElementById('secondary-trigger');
-    
-    // Function to update logo visibility based on drawer states
+    // Logo visibility management
     function updateLogoVisibility() {
-        const anyDrawerOpen = Object.values(drawers).some(drawer => 
-            drawer.classList.contains('expanded')
-        ) || secondaryDrawer.classList.contains('active');
+        var app = document.querySelector('.app');
+        var anyDrawerExpanded = document.querySelector('.drawer.expanded');
+        var secondaryDrawerActive = document.querySelector('.secondary-drawer.active');
         
-        if (anyDrawerOpen) {
+        if (anyDrawerExpanded || secondaryDrawerActive) {
             app.classList.add('drawer-open');
         } else {
             app.classList.remove('drawer-open');
         }
     }
 
-    // Add click handlers to each drawer
-    Object.keys(drawers).forEach(position => {
-        const drawer = drawers[position];
-        
-        drawer.addEventListener('click', function(e) {
-            // Don't toggle main drawer if clicking on secondary trigger
-            if (e.target.closest('.secondary-trigger')) {
-                return;
-            }
+    var drawerIds = ['drawer-left', 'drawer-right', 'drawer-top', 'drawer-bottom'];
+    drawerIds.forEach(function(id) {
+        var drawer = document.getElementById(id);
+        if (!drawer) {
+            return;
+        }
+
+        drawer.addEventListener('click', function(event) {
+            event.stopPropagation();
+            this.classList.toggle('expanded');
             
-            // Close secondary drawer when main left drawer closes
-            if (position === 'left' && drawer.classList.contains('expanded')) {
-                secondaryDrawer.classList.remove('active');
-                secondaryTrigger.classList.remove('active');
-                drawers.left.classList.remove('secondary-active');
-            }
+            // Update logo visibility after drawer state change
+            setTimeout(updateLogoVisibility, 10);
             
-            // Toggle this drawer (allow multiple drawers to be open)
-            drawer.classList.toggle('expanded');
-            
-            // Update logo visibility
-            updateLogoVisibility();
+            // Drawer toggled silently
         });
     });
 
-    // Secondary drawer toggle functionality
-    if (secondaryTrigger && secondaryDrawer) {
-        secondaryTrigger.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent main drawer from toggling
+    var leftDrawer = document.getElementById('drawer-left');
+    var secondaryDrawer = document.getElementById('secondary-drawer');
+    var secondaryTrigger = document.getElementById('secondary-trigger');
+    if (leftDrawer && secondaryDrawer && secondaryTrigger) {
+        secondaryTrigger.addEventListener('click', function(event) {
+            event.stopPropagation();
+            var isActive = secondaryDrawer.classList.toggle('active');
+            leftDrawer.classList.toggle('secondary-active', isActive);
             
-            // Only work if left drawer is expanded
-            if (drawers.left.classList.contains('expanded')) {
-                secondaryDrawer.classList.toggle('active');
-                secondaryTrigger.classList.toggle('active');
-                // Add class to primary drawer to boost its z-index
-                drawers.left.classList.toggle('secondary-active');
-                
-                // Update logo visibility
-                updateLogoVisibility();
+            // On iPad, maintain alignment when toggling
+            if (isIPad && leftDrawer && secondaryDrawer) {
+                if (isChrome) {
+                    // Chrome approach - use computed style
+                    var computedStyle = window.getComputedStyle(leftDrawer);
+                    var computedTop = computedStyle.top;
+                    secondaryDrawer.style.setProperty('top', computedTop, 'important');
+                    if (isActive) {
+                        secondaryDrawer.style.setProperty('transform', 'translateY(-50%) translateX(0)', 'important');
+                    } else {
+                        secondaryDrawer.style.setProperty('transform', 'translateY(-50%) translateX(-100%)', 'important');
+                    }
+                } else {
+                    // Safari approach - use getBoundingClientRect
+                    var leftRect = leftDrawer.getBoundingClientRect();
+                    var leftTop = leftRect.top;
+                    secondaryDrawer.style.setProperty('top', leftTop + 'px', 'important');
+                    if (isActive) {
+                        secondaryDrawer.style.setProperty('transform', 'translateX(0)', 'important');
+                    } else {
+                        secondaryDrawer.style.setProperty('transform', 'translateX(-100%)', 'important');
+                    }
+                }
             }
+            
+            // Update logo visibility after secondary drawer state change
+            setTimeout(updateLogoVisibility, 10);
+            
+            // Secondary drawer toggled silently
         });
     }
 
-    // Optional: Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        // ESC key closes all drawers
-        if (e.key === 'Escape') {
-            Object.values(drawers).forEach(drawer => {
-                drawer.classList.remove('expanded');
-            });
-            // Also close secondary drawer
-            secondaryDrawer.classList.remove('active');
-            secondaryTrigger.classList.remove('active');
-            drawers.left.classList.remove('secondary-active');
-            
-            // Update logo visibility
-            updateLogoVisibility();
-        }
-        
-        // Arrow keys to toggle specific drawers
-        switch(e.key) {
-            case 'ArrowLeft':
-                if (e.ctrlKey || e.metaKey) {
-                    e.preventDefault();
-                    // Close secondary drawer when left drawer closes
-                    if (drawers.left.classList.contains('expanded')) {
-                        secondaryDrawer.classList.remove('active');
-                        secondaryTrigger.classList.remove('active');
-                        drawers.left.classList.remove('secondary-active');
-                    }
-                    drawers.left.classList.toggle('expanded');
-                    updateLogoVisibility();
-                }
-                break;
-            case 'ArrowRight':
-                if (e.ctrlKey || e.metaKey) {
-                    e.preventDefault();
-                    drawers.right.classList.toggle('expanded');
-                    updateLogoVisibility();
-                }
-                break;
-            case 'ArrowUp':
-                if (e.ctrlKey || e.metaKey) {
-                    e.preventDefault();
-                    drawers.top.classList.toggle('expanded');
-                    updateLogoVisibility();
-                }
-                break;
-            case 'ArrowDown':
-                if (e.ctrlKey || e.metaKey) {
-                    e.preventDefault();
-                    drawers.bottom.classList.toggle('expanded');
-                    updateLogoVisibility();
-                }
-                break;
-        }
-    });
+    // Setup complete - all functionality ready
 });

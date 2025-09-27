@@ -592,10 +592,22 @@ body {
     transform: rotate(180deg);
 }
 
-/* Only show secondary drawer when primary left drawer is expanded */
-.drawer-left:not(.expanded) .secondary-drawer {
-    display: none;
+/* iPad-specific secondary drawer alignment - match left drawer exactly with !important */
+@media (min-device-width: 768px) and (max-device-width: 1366px) {
+    .secondary-drawer {
+        top: 50% !important;
+        bottom: auto !important;
+        height: 80vh !important;
+        transform: translateY(-50%) translateX(-100%) !important;
+        /* Force same vertical positioning as left drawer */
+    }
+    
+    .secondary-drawer.active {
+        transform: translateY(-50%) translateX(0) !important;
+    }
 }
+
+/* Secondary drawer controlled by JavaScript - no CSS visibility rules needed */
 
 /* Responsive behavior */
 @media (max-width: 768px) {
@@ -705,60 +717,4 @@ body {
     .drawer-right:hover {
         transform: translateY(-50%) translateX(1px) !important;
     }
-}
-
-/* COMPREHENSIVE iPad DETECTION DEBUGGING */
-/* These styles will override the above with different colors to show what detection method works */
-
-/* Force visibility on ALL devices - yellow background */
-.drawer-bottom {
-    background: rgba(255, 255, 0, 0.8) !important; /* Yellow for ALL devices */
-    border: 3px solid yellow !important;
-}
-
-.drawer-bottom.expanded {
-    background: rgba(255, 255, 0, 1) !important;
-}
-
-/* Override with red for min-width tablets */
-@media (min-width: 768px) {
-    .drawer-bottom {
-        background: rgba(255, 0, 0, 0.8) !important; /* Red for min-width tablets */
-        border: 3px solid red !important;
-    }
-}
-
-/* Override with green for touch devices */
-@media (pointer: coarse) {
-    .drawer-bottom {
-        background: rgba(0, 255, 0, 0.8) !important; /* Green for touch devices */
-        border: 3px solid green !important;
-    }
-}
-
-/* Override with blue for device-width iPads */
-@media (min-device-width: 768px) {
-    .drawer-bottom {
-        background: rgba(0, 0, 255, 0.8) !important; /* Blue for device-width iPads */
-        border: 3px solid blue !important;
-    }
-}
-
-/* Override with purple for JavaScript-detected iPads */
-.is-ipad .drawer-bottom {
-    background: rgba(128, 0, 128, 0.8) !important; /* Purple for JS-detected iPads */
-    border: 3px solid magenta !important;
-    bottom: 8px !important; /* Pixel positioning for certainty */
-    left: auto !important; /* Remove centering */
-    transform: none !important; /* Remove centering */
-    width: 100% !important; /* Full width */
-}
-
-.is-ipad .drawer-bottom.expanded {
-    background: rgba(128, 0, 128, 1) !important;
-    bottom: 8px !important;
-}
-
-.is-ipad .center-area {
-    bottom: 56px !important; /* Make room for 8px drawer + 40px height + 8px gap */
 }
