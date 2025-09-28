@@ -17,24 +17,7 @@ import { IoSunny, IoMoon } from "react-icons/io5";
   } -->
 </button>
 
-<script>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  // Apply the theme immediately
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-
+<script is:inline>
   const setToggleListener = () => {
     let toggleBtn = document.getElementById("themeToggle");
     const handleToggleClick = () => {
@@ -43,7 +26,7 @@ import { IoSunny, IoMoon } from "react-icons/io5";
 
       const isDark = element.classList.contains("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
-      //@ts-ignore
+      
       const label = document.getElementById("theme_label");
       if (label) {
         label.textContent = isDark ? "Dark theme" : "Light theme";
@@ -53,12 +36,30 @@ import { IoSunny, IoMoon } from "react-icons/io5";
     toggleBtn?.addEventListener("click", handleToggleClick);
   };
 
-  setToggleListener();
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setToggleListener);
+  } else {
+    setToggleListener();
+  }
 
+  // Re-initialize after Astro page transitions
   document.addEventListener("astro:after-swap", setToggleListener);
-  //@ts-ignore
-  const label = document.getElementById("theme_label");
-
-  if (label)
-    label.textContent = theme === "dark" ? "Dark theme" : "Light theme";
+  
+  // Update label if it exists
+  const updateLabel = () => {
+    const label = document.getElementById("theme_label");
+    if (label) {
+      const isDark = document.documentElement.classList.contains("dark");
+      label.textContent = isDark ? "Dark theme" : "Light theme";
+    }
+  };
+  
+  // Update label on load and after transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateLabel);
+  } else {
+    updateLabel();
+  }
+  document.addEventListener("astro:after-swap", updateLabel);
 </script>
