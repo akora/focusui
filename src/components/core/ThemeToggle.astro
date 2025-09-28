@@ -28,6 +28,13 @@ import { IoSunny, IoMoon } from "react-icons/io5";
     return "light";
   })();
 
+  // Apply the theme immediately
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+
   const setToggleListener = () => {
     let toggleBtn = document.getElementById("themeToggle");
     const handleToggleClick = () => {
@@ -37,9 +44,10 @@ import { IoSunny, IoMoon } from "react-icons/io5";
       const isDark = element.classList.contains("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
       //@ts-ignore
-      document.getElementById("theme_label").textContent = isDark
-        ? "Dark theme"
-        : "Light theme";
+      const label = document.getElementById("theme_label");
+      if (label) {
+        label.textContent = isDark ? "Dark theme" : "Light theme";
+      }
     };
 
     toggleBtn?.addEventListener("click", handleToggleClick);
