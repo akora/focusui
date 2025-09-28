@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>FocusUI - Prototype</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicons/android-chrome-512x512.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=no-cache-092720253030"> <!-- Aggressive cache busting -->
+</head>
+<body>
+    <div class="app">
+        <!-- Center Area (background) -->
+        <div class="center-area">
+            <div class="logo-container">
+                <img src="FocusUI-eventhorizon-v2.png" alt="FocusUI by eventhorizon" class="focusui-logo">
+            </div>
+        </div>
+        
+        <!-- Top Drawer -->
+        <div class="drawer drawer-top" id="drawer-top">
+            <div class="drawer-handle"></div>
+        </div>
+        
+        <!-- Left Drawer -->
+        <div class="drawer drawer-left" id="drawer-left">
+            <div class="drawer-handle"></div>
+            <div class="drawer-content">
+                <div class="icon social-icon"><i class="fa-brands fa-x-twitter"></i></div>
+                <div class="icon social-icon"><i class="fa-brands fa-linkedin"></i></div>
+                <div class="icon social-icon"><i class="fa-brands fa-facebook"></i></div>
+                <div class="icon social-icon"><i class="fa-brands fa-bluesky"></i></div>
+                <div class="icon social-icon"><i class="fa-brands fa-mastodon"></i></div>
+                <div class="icon social-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <!-- Secondary drawer trigger -->
+                <div class="icon secondary-trigger" id="secondary-trigger">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Secondary Drawer - Independent element -->
+        <div class="secondary-drawer" id="secondary-drawer">
+            <div class="secondary-drawer-content">
+                <!-- High importance - Red zone -->
+                <div class="icon social-icon importance-high"><i class="fa-brands fa-x-twitter"></i></div>
+                <div class="icon social-icon importance-high"><i class="fa-brands fa-linkedin"></i></div>
+                
+                <!-- Medium-high importance - Orange zone -->
+                <div class="icon social-icon importance-medium-high"><i class="fa-brands fa-whatsapp"></i></div>
+                
+                <!-- Medium importance - Yellow zone -->
+                <div class="icon social-icon importance-medium"><i class="fa-brands fa-facebook"></i></div>
+                
+                <!-- Low importance - Blue zone -->
+                <div class="icon social-icon importance-low"><i class="fa-brands fa-bluesky"></i></div>
+                <div class="icon social-icon importance-low"><i class="fa-brands fa-mastodon"></i></div>
+            </div>
+        </div>
+        
+        <!-- Right Drawer -->
+        <div class="drawer drawer-right" id="drawer-right">
+            <div class="drawer-handle"></div>
+        </div>
+        
+        <!-- Bottom Drawer -->
+        <div class="drawer drawer-bottom" id="drawer-bottom">
+            <div class="drawer-handle"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>

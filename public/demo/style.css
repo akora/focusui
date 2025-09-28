@@ -1,0 +1,720 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+/* Main app container - Relative positioning for absolute children */
+.app {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    padding: 8px;
+    background: linear-gradient(to bottom right, #475569 0%, #64748b 25%, #94a3b8 50%, #cbd5e1 75%, #e2e8f0 100%);
+    background-attachment: fixed;
+}
+
+/* Center area - takes full space */
+.center-area {
+    position: absolute;
+    top: 48px; /* 40px horizontal drawer + 8px gap */
+    left: 48px; /* 40px vertical drawer + 8px gap */
+    right: 48px; /* 40px vertical drawer + 8px gap */
+    bottom: 48px; /* 40px horizontal drawer + 8px gap */
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo container and styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.logo-container:hover {
+    opacity: 1;
+}
+
+.focusui-logo {
+    max-width: 300px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* Base drawer styles with glass effect - less transparent */
+.drawer {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(0, 0, 0, 0.1) 100%);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    cursor: pointer;
+    z-index: 15; /* Unified z-index for all main drawers - higher than secondary drawer */
+    isolation: isolate; /* Create isolated stacking context */
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    /* Remove default browser focus/active states */
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.drawer:hover {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.35) 0%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(0, 0, 0, 0.08) 100%);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.15),
+        0 3px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Custom focus and active states to replace browser defaults */
+.drawer:focus,
+.drawer:active {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.45) 0%, 
+        rgba(255, 255, 255, 0.25) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    outline: none;
+}
+
+/* Drawer handle (subtle visual indicator) with glass effect */
+.drawer-handle {
+    position: absolute;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.4) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Drawer content and icons */
+.drawer-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2; /* Above secondary drawer within isolated context */
+}
+
+.drawer.expanded .drawer-content {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.icon {
+    font-size: 24px;
+    margin: 4px;
+    padding: 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.icon:hover {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(1.1) translateY(-1px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Specific layouts for each drawer direction */
+.drawer-top .drawer-content,
+.drawer-bottom .drawer-content {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.drawer-left .drawer-content,
+.drawer-right .drawer-content {
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Social media icon styling */
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+}
+
+.social-icon i {
+    color: rgba(0, 0, 0, 0.7);
+    transition: color 0.2s ease;
+}
+
+.social-icon:hover i {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+
+
+
+/* Specific social media colors on hover */
+.social-icon:nth-child(1):hover {
+    background: rgba(0, 0, 0, 0.3); /* X (Twitter) - dark */
+}
+
+.social-icon:nth-child(2):hover {
+    background: rgba(0, 119, 181, 0.3); /* LinkedIn - blue */
+}
+
+.social-icon:nth-child(3):hover {
+    background: rgba(24, 119, 242, 0.3); /* Facebook - blue */
+}
+
+.social-icon:nth-child(4):hover {
+    background: rgba(0, 133, 255, 0.3); /* Bluesky - sky blue */
+}
+
+.social-icon:nth-child(5):hover {
+    background: rgba(99, 100, 255, 0.3); /* Mastodon - purple */
+}
+
+.social-icon:nth-child(6):hover {
+    background: rgba(37, 211, 102, 0.3); /* WhatsApp - green */
+}
+
+/* Top drawer */
+.drawer-top {
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75vw; /* 75% of viewport width for shorter, centered drawer */
+    height: 40px;
+    /* Curved shape: sharp top edges, curved bottom (toward center) */
+    border-radius: 0 0 50% 50%;
+}
+
+.drawer-top.expanded {
+    height: 80px;
+    max-height: 15vh; /* Limit to 15% of viewport height */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75vw;
+}
+
+/* Bottom drawer */
+/* TODO: CRITICAL BUG - Bottom drawer not visible on iPad devices (Safari & Chrome)
+   Multiple attempted fixes have failed. Need to investigate iPad viewport behavior.
+   See memory for full details of attempted solutions. */
+.drawer-bottom {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0); /* Center alignment + hardware acceleration */
+    width: 75vw; /* 75% of viewport width for shorter, centered drawer */
+    height: 40px;
+    /* Curved shape: curved top (toward center), sharp bottom edges */
+    border-radius: 50% 50% 0 0;
+    /* Ensure visibility on all devices */
+    min-height: 40px;
+}
+
+.drawer-bottom.expanded {
+    height: 80px;
+    max-height: 15vh; /* Limit to 15% of viewport height */
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 75vw;
+}
+
+.drawer-top .drawer-handle,
+.drawer-bottom .drawer-handle {
+    width: 60px;
+    height: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.drawer-top .drawer-handle {
+    bottom: 8px;
+}
+
+.drawer-bottom .drawer-handle {
+    top: 8px;
+}
+
+/* Ensure horizontal drawers maintain center alignment on hover */
+.drawer-top:hover {
+    left: 50%;
+    transform: translateX(-50%) translateY(-1px); /* Combine centering with hover lift */
+    width: 75vw;
+}
+
+.drawer-bottom:hover {
+    left: 50%;
+    transform: translateX(-50%) translateY(-1px) translateZ(0); /* Combine centering with hover lift */
+    width: 75vw;
+}
+
+/* Ensure vertical drawers maintain center alignment on hover */
+.drawer-left:hover {
+    top: 50%;
+    transform: translateY(-50%) translateX(-1px); /* Combine centering with hover lift */
+    height: 80vh;
+}
+
+.drawer-right:hover {
+    top: 50%;
+    transform: translateY(-50%) translateX(1px); /* Combine centering with hover lift */
+    height: 80vh;
+}
+
+/* Left drawer */
+.drawer-left {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    height: 80vh; /* 80% of viewport height for slightly larger drawer */
+    width: 40px;
+    /* Curved shape: sharp left edges, curved right (toward center) */
+    border-radius: 0 50% 50% 0;
+}
+
+.drawer-left.expanded {
+    width: 80px;
+    max-width: 15vw; /* Limit to 15% of viewport width */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 75vh;
+}
+
+/* Right drawer */
+.drawer-right {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+    height: 80vh; /* 80% of viewport height for slightly larger drawer */
+    width: 40px;
+    /* Curved shape: curved left (toward center), sharp right edges */
+    border-radius: 50% 0 0 50%;
+}
+
+.drawer-right.expanded {
+    width: 80px;
+    max-width: 15vw; /* Limit to 15% of viewport width */
+    top: 50%;
+    transform: translateY(-50%);
+    height: 75vh;
+}
+
+.drawer-left .drawer-handle,
+.drawer-right .drawer-handle {
+    width: 4px;
+    height: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+}
+
+.drawer-left .drawer-handle {
+    right: 8px;
+}
+
+.drawer-right .drawer-handle {
+    left: 8px;
+}
+
+/* Expanded state styling with enhanced glass effect */
+.drawer.expanded {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.15) 50%, 
+        rgba(0, 0, 0, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.drawer.expanded .drawer-handle {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.5) 0%, 
+        rgba(255, 255, 255, 0.2) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Secondary drawer - positioned as independent element */
+.secondary-drawer {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 78vh; /* Slightly smaller than primary drawer */
+    left: 48px; /* Positioned behind primary drawer */
+    width: 40px; /* Slightly wider for better icon spacing */
+    /* CSS Variables for dynamic positioning */
+    --drawer-width-collapsed: 40px;
+    --drawer-width-expanded: 100px;
+    --icon-size: 32px;
+    --base-margin: 15px; /* Minimum distance from left edge */
+    background: linear-gradient(to bottom, 
+        rgba(139, 0, 0, 0.4) 0%,     /* Darker red at top */
+        rgba(255, 69, 0, 0.35) 25%,  /* Red-orange */
+        rgba(255, 165, 0, 0.3) 50%,  /* Orange in middle */
+        rgba(255, 255, 0, 0.25) 75%, /* Yellow */
+        rgba(173, 216, 230, 0.3) 100% /* Light blue at bottom */
+    ), linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.05) 100%); /* Overlay glass effect */
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 50% 50% 0; /* Same curve as primary drawer */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) translateX(-100%); /* Hidden by sliding left while maintaining centering */
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.secondary-drawer.active {
+    width: var(--drawer-width-expanded); /* Dynamic width from CSS variable */
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0); /* Maintain centering and slide out */
+    background: linear-gradient(to bottom, 
+        rgba(139, 0, 0, 0.5) 0%,     /* Darker red at top - enhanced */
+        rgba(255, 69, 0, 0.4) 25%,   /* Red-orange - enhanced */
+        rgba(255, 165, 0, 0.35) 50%, /* Orange in middle - enhanced */
+        rgba(255, 255, 0, 0.3) 75%,  /* Yellow - enhanced */
+        rgba(173, 216, 230, 0.35) 100% /* Light blue at bottom - enhanced */
+    ), linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.1) 100%); /* Enhanced glass effect for active state */
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 5; /* Lower than primary drawer's z-index: 15 */
+    box-shadow: 
+        0 6px 24px rgba(0, 0, 0, 0.15),
+        0 3px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+
+/* Primary drawers maintain unified z-index - no special override needed */
+
+/* Hide the handle on left drawer when secondary drawer is expanded */
+.drawer-left.secondary-active .drawer-handle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.secondary-drawer-content {
+    position: relative;
+    height: 100%;
+    padding: 0; /* Remove padding to use full height */
+    /* Remove flex layout to allow absolute positioning */
+}
+
+/* Make secondary drawer icons smaller but keep same glass styling */
+.secondary-drawer-content .icon {
+    position: absolute;
+    font-size: 18px; /* Smaller than primary drawer icons (24px) */
+    margin: 2px; /* Smaller margin */
+    padding: 6px; /* Smaller padding */
+    width: 28px; /* Smaller width */
+    height: 28px; /* Smaller height */
+    border-radius: 8px; /* Inherit glass styling */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.secondary-drawer-content .icon:hover {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(1.05) translateY(-1px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Dynamic positioning using CSS calc() and variables */
+/* Formula: left = base_margin + (drawer_width * curve_factor) - (icon_size / 2) */
+/* Curve factors: 0.4 (tight curve), 0.45 (medium), 0.48 (widest) */
+
+/* High importance - Red zone (top 25% of gradient) */
+.secondary-drawer-content .icon:nth-child(1) { /* Twitter - first icon at 15% height */
+    top: 15%; 
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.4 - var(--icon-size) / 2); /* Dynamic tight curve with margin */
+}
+
+.secondary-drawer-content .icon:nth-child(2) { /* LinkedIn - second icon at 25% height */
+    top: 25%;
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.45 - var(--icon-size) / 2); /* Dynamic medium curve with margin */
+}
+
+/* Medium-high importance - Orange zone (25-50% of gradient) */
+.secondary-drawer-content .icon:nth-child(3) { /* WhatsApp - third icon at 40% height */
+    top: 40%;
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.48 - var(--icon-size) / 2); /* Dynamic widest area with margin */
+}
+
+/* Medium importance - Yellow zone (50-75% of gradient) */
+.secondary-drawer-content .icon:nth-child(4) { /* Facebook - fourth icon at 60% height */
+    top: 60%;
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.48 - var(--icon-size) / 2); /* Same as 40% - widest area with margin */
+}
+
+/* Low importance - Blue zone (75-100% of gradient) */
+.secondary-drawer-content .icon:nth-child(5) { /* Bluesky - fifth icon at 75% height */
+    top: 75%;
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.45 - var(--icon-size) / 2); /* Mirror of 25% position with margin */
+}
+
+.secondary-drawer-content .icon:nth-child(6) { /* Mastodon - sixth icon at 85% height */
+    top: 85%;
+    left: calc(var(--base-margin) + var(--drawer-width-expanded) * 0.4 - var(--icon-size) / 2); /* Mirror of 15% - tight curve with margin */
+}
+
+/* Animation for importance changes */
+.secondary-drawer-content .icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth position changes */
+}
+
+/* Hide logo when any drawer is expanded */
+.app.drawer-open .focusui-logo {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Show logo when all drawers are closed */
+.focusui-logo {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Secondary trigger styling */
+.secondary-trigger {
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 8px;
+}
+
+.secondary-trigger i {
+    transition: transform 0.3s ease;
+}
+
+.secondary-trigger.active i {
+    transform: rotate(180deg);
+}
+
+/* iPad-specific secondary drawer alignment - match left drawer exactly */
+@media (min-device-width: 768px) and (max-device-width: 1366px) {
+    .secondary-drawer {
+        top: 50%;
+        bottom: auto;
+        height: 80vh;
+        transform: translateY(-50%) translateX(-100%);
+        /* Ensure same vertical positioning as left drawer */
+    }
+    
+    .secondary-drawer.active {
+        transform: translateY(-50%) translateX(0);
+    }
+}
+
+/* Secondary drawer controlled by JavaScript - no CSS visibility rules needed */
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .drawer-left.expanded {
+        width: 80px;
+        max-width: 20vw; /* Icon-optimized for mobile */
+    }
+    
+    .drawer-right.expanded {
+        width: 80px;
+        max-width: 20vw; /* Icon-optimized for mobile */
+    }
+    
+    .drawer-top.expanded {
+        height: 80px;
+        max-height: 20vh; /* More space for icons on mobile */
+    }
+    
+    .drawer-bottom.expanded {
+        height: 80px;
+        max-height: 20vh; /* More space for icons on mobile */
+    }
+    
+    /* iPad Chrome specific fixes */
+    .drawer-bottom {
+        bottom: max(8px, env(safe-area-inset-bottom, 8px));
+        /* Ensure bottom drawer is above browser UI */
+        min-height: 40px;
+    }
+    
+    /* Adjust center area for safe areas on mobile */
+    .center-area {
+        bottom: max(48px, calc(48px + env(safe-area-inset-bottom, 0px)));
+    }
+}
+
+    /* Final iPad bottom drawer styling - optimized positioning */
+@media (min-device-width: 768px) {
+    .drawer-bottom {
+        /* Clean glass styling */
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(0, 0, 0, 0.1) 100%);
+        backdrop-filter: blur(16px) saturate(1.4);
+        -webkit-backdrop-filter: blur(16px) saturate(1.4);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Final positioning - very close to bottom with center alignment */
+        bottom: 1vh !important;
+        left: 50% !important;
+        transform: translateX(-50%) translateZ(0) !important;
+        width: 75vw !important; /* Shorter, centered drawer */
+        position: fixed !important;
+        z-index: 99999 !important;
+        min-height: 40px;
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .drawer-bottom.expanded {
+        height: 80px !important;
+        max-height: 15vh !important;
+        bottom: 1vh !important;
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.15) 50%,
+            rgba(0, 0, 0, 0.05) 100%);
+        backdrop-filter: blur(20px) saturate(1.6);
+        -webkit-backdrop-filter: blur(20px) saturate(1.6);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.15),
+            0 4px 16px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .center-area {
+        bottom: 9.5vh !important; /* Adjust for 1.5vh drawer position */
+    }
+
+    /* Ensure vertical drawers maintain centering on iPad */
+    .drawer-left,
+    .drawer-right {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        height: 80vh !important;
+    }
+
+    /* Expanded and hover states maintain centering */
+    .drawer-left.expanded,
+    .drawer-right.expanded {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        height: 80vh !important;
+    }
+
+    .drawer-left:hover,
+    .drawer-right:hover {
+        top: 50% !important;
+        transform: translateY(-50%) translateX(-1px) !important;
+        height: 80vh !important;
+    }
+
+    .drawer-right:hover {
+        transform: translateY(-50%) translateX(1px) !important;
+    }
+}

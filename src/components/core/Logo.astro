@@ -1,0 +1,22 @@
+---
+import config from "@/config/config.json";
+import { Image } from "astro:assets";
+
+export interface Props {
+  src?: string;
+  showText?: boolean;
+}
+
+const { src, showText } = Astro.props as Props;
+const { title } = config.site;
+---
+
+<a href="/" class="navbar-brand flex flex-row items-center justify-start">
+  <Image
+    class="h-24 w-auto flex-shrink-0"
+    src="/images/logos/FocusUI-logo-light-theme.png"
+    alt={title}
+    width={360}
+    height={96}
+  />
+</a>

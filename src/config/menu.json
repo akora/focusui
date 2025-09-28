@@ -1,0 +1,62 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "Features",
+      "url": "/features"
+    },
+    {
+      "name": "Demos",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Interactive Demo",
+          "url": "/demo/index.html"
+        },
+        {
+          "name": "Cross-Device Demo",
+          "url": "/demo-cross-device/index.html"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "url": "/documentation"
+    },
+    {
+      "name": "Changelog",
+      "url": "/changelog"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    }
+  ],
+
+  "footer": [
+    {
+      "name": "Interactive Demo",
+      "url": "/demo/index.html"
+    },
+    {
+      "name": "Cross-Device Demo", 
+      "url": "/demo-cross-device/index.html"
+    },
+    {
+      "name": "Documentation",
+      "url": "/documentation"
+    },
+    {
+      "name": "Changelog",
+      "url": "/changelog"
+    },
+    {
+      "name": "About",
+      "url": "/about"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "site": {
+    "title": "FocusUI",
+    "base_url": "https://focusui.io",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "/favicons/favicon.ico",
+    "logo": "/favicons/android-chrome-192x192.png",
+    "logo_width": "48",
+    "logo_height": "48",
+    "logo_text": "FocusUI"
+  },
+
+  "params": {
+    "footer_description": "Revolutionary drawer-based UI system with importance-driven visual hierarchy. Experience the future of interface design.",
+    "email": "ak@akora.info",
+    "location": "Building the future of UI/UX design",
+    "phone": "",
+    "contact_form_action": "#",
+    "copyright": "Copyright © 2025 FocusUI - Andras Kora"
+},
+
+  "metadata": {
+    "meta_author": "Andras Kora",
+    "meta_image": "/favicons/android-chrome-512x512.png",
+    "meta_description": "FocusUI - Revolutionary drawer-based UI system with importance-driven visual hierarchy and cross-device compatibility.",
+    "meta_keywords": ["FocusUI", "UI framework", "drawer system", "visual hierarchy", "interface design", "responsive design", "cross-device"],
+    "meta_application_name": "FocusUI"
+  }
+}

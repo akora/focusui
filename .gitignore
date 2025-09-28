@@ -1,0 +1,54 @@
+# Build output
+dist/
+.output/
+
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Lock files (keep pnpm-lock.yaml, ignore others)
+yarn.lock
+package-lock.json
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.production.local
+
+# Astro
+.astro/
+
+# IDE and Editor files
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Backup files
+backup-*/
+*.backup
+*.bak
+
+# FocusUI specific
+# (Add any project-specific ignores here as needed)

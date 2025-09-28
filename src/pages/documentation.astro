@@ -1,0 +1,98 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/components/core/PageHeader.astro";
+import { getEntry } from "astro:content";
+
+const page = await getEntry("pages", "documentation");
+const { title, description } = page.data;
+---
+
+<Base
+  title={title}
+  description={description}
+>
+  <PageHeader page_data={{title: title, description: description, data: {}}} />
+  
+  <section class="section-sm">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="content">
+            <h2>Getting Started with FocusUI</h2>
+            <p>
+              FocusUI is a revolutionary drawer-based UI system that implements importance-driven visual hierarchy. 
+              This documentation will help you understand and implement FocusUI in your projects.
+            </p>
+
+            <h3>Core Concepts</h3>
+            <ul>
+              <li><strong>Visual Hierarchy:</strong> Elements are positioned based on importance, from high-priority (red zone) to low-priority (blue zone)</li>
+              <li><strong>Multi-Drawer System:</strong> Multiple drawers can operate simultaneously with intelligent parent-child relationships</li>
+              <li><strong>Cross-Device Compatibility:</strong> Perfect functionality across desktop, tablet, and mobile devices</li>
+              <li><strong>Mathematical Positioning:</strong> Precise algorithms ensure perfect alignment and spacing</li>
+            </ul>
+
+            <h3>Interactive Demos</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+              <div class="bg-theme-light dark:bg-darkmode-theme-light rounded-lg p-6">
+                <h4 class="text-h4 mb-4">Standard Demo</h4>
+                <p class="mb-4">Experience the full FocusUI system with all drawer types and interactions.</p>
+                <a href="/demo/index.html" class="btn-primary">Try Interactive Demo</a>
+              </div>
+              <div class="bg-theme-light dark:bg-darkmode-theme-light rounded-lg p-6">
+                <h4 class="text-h4 mb-4">Cross-Device Demo</h4>
+                <p class="mb-4">Test the system's responsiveness and iPad Safari compatibility.</p>
+                <a href="/demo-cross-device/index.html" class="btn-outline-primary">Try Cross-Device Demo</a>
+              </div>
+            </div>
+
+            <h3>Key Features</h3>
+            <h4>Importance-Based Positioning</h4>
+            <p>
+              FocusUI uses mathematical algorithms to position elements based on their importance level. 
+              High-importance items appear in the red zone (top-left), transitioning smoothly to 
+              low-importance items in the blue zone (bottom-right).
+            </p>
+
+            <h4>Multi-Drawer Operations</h4>
+            <p>
+              Unlike traditional UI systems, FocusUI allows multiple drawers to be open simultaneously. 
+              The system maintains intelligent parent-child relationships, ensuring smooth interactions 
+              without conflicts.
+            </p>
+
+            <h4>Cross-Device Excellence</h4>
+            <p>
+              Special attention has been paid to iPad Safari compatibility, with JavaScript-based 
+              positioning solutions that bypass CSS centering issues. The system works flawlessly 
+              across all devices and orientations.
+            </p>
+
+            <h3>Technical Implementation</h3>
+            <p>
+              FocusUI is built with pure HTML, CSS, and JavaScript - no complex frameworks or heavy 
+              dependencies. This ensures lightning-fast performance and easy integration into any project.
+            </p>
+
+            <h4>Browser Support</h4>
+            <ul>
+              <li>✅ Desktop browsers (Chrome, Firefox, Safari, Edge)</li>
+              <li>✅ Mobile browsers (iOS Safari, Chrome Mobile)</li>
+              <li>✅ Tablet browsers (iPad Safari, iPad Chrome)</li>
+              <li>✅ Responsive design with orientation change support</li>
+            </ul>
+
+            <div class="bg-gradient-to-r from-red-500 to-blue-500 text-white rounded-lg p-6 my-8">
+              <h4 class="text-white mb-4">Ready to Experience FocusUI?</h4>
+              <p class="mb-4">Try our interactive demos to see the importance-driven visual hierarchy in action.</p>
+              <div class="flex flex-wrap gap-4">
+                <a href="/demo/index.html" class="btn bg-white text-gray-900 hover:bg-gray-100">Interactive Demo</a>
+                <a href="/demo-cross-device/index.html" class="btn border-white text-white hover:bg-white hover:text-gray-900">Cross-Device Demo</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

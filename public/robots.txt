@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Allow all content - FocusUI is a public showcase
+Disallow:
+
+# Sitemap location
+Sitemap: https://focusui.io/sitemap-index.xml
