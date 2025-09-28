@@ -53,9 +53,22 @@ import { IoSunny, IoMoon } from "react-icons/io5";
     toggleBtn?.addEventListener("click", handleToggleClick);
   };
 
+  // Apply theme on initial load
+  const applyStoredTheme = () => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+
   setToggleListener();
 
-  document.addEventListener("astro:after-swap", setToggleListener);
+  document.addEventListener("astro:after-swap", () => {
+    applyStoredTheme();
+    setToggleListener();
+  });
   //@ts-ignore
   const label = document.getElementById("theme_label");
 
