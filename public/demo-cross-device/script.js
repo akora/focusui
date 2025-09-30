@@ -202,6 +202,19 @@ document.addEventListener('DOMContentLoaded', function() {
             var viewportHeight = window.innerHeight;
             var viewportWidth = window.innerWidth;
             
+            // Center logo on iPad using JavaScript (CSS centering doesn't work reliably on iPad Safari)
+            var logoContainer = document.querySelector('.logo-container');
+            if (logoContainer) {
+                var logoWidth = logoContainer.offsetWidth;
+                var logoHeight = logoContainer.offsetHeight;
+                var centerX = (viewportWidth - logoWidth) / 2;
+                var centerY = (viewportHeight - logoHeight) / 2;
+                
+                logoContainer.style.left = centerX + 'px';
+                logoContainer.style.top = centerY + 'px';
+                logoContainer.style.transform = 'none'; // Disable CSS transform centering
+            }
+            
             // Get all drawers
             var leftDrawer = document.getElementById('drawer-left');
             var rightDrawer = document.getElementById('drawer-right');
@@ -267,9 +280,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 bottomDrawer.style.height = bottomDrawerHeight + 'px';
             }
             
-            console.log('iPad drawer centering applied:', {
+            console.log('iPad drawer and logo centering applied:', {
                 viewport: viewportWidth + 'x' + viewportHeight,
                 browser: isIPadSafari ? 'iPad Safari' : (isIPadChrome ? 'iPad Chrome' : 'Desktop'),
+                logo: logoContainer ? 'centered at ' + logoContainer.style.left + ', ' + logoContainer.style.top : 'N/A',
                 margins: topDrawer ? 'top: ' + (topDrawer.style.top || 'N/A') + ', bottom: ' + bottomMargin + 'px' : 'N/A',
                 verticalDrawers: (leftDrawer ? verticalDrawerHeight + 'px height at ' + centerY + 'px' : 'N/A'),
                 horizontalDrawers: (topDrawer ? drawerWidth + 'px width at ' + centerX + 'px' : 'N/A'),
