@@ -60,7 +60,7 @@ const image_position_classes = (() => {
         )
       }
       <div class=`${image_position_classes[1]}`>
-        <h1 class={`${section.title_size}`} set:html={markdownify(title)} />
+        <h1 class={`${section.title_size} !leading-[1.1]`} set:html={markdownify(title)} />
 
         <p class="mt-6" set:html={markdownify(content)} />
 
