@@ -243,19 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 var horizontalDrawerHeight = 40; // Standard drawer height
                 var margin = 8; // Standard margin
                 
-                // Browser-specific margin adjustments
-                var topMargin = margin; // Default 8px margin
-                var bottomMargin = margin; // Default 8px margin
-                
-                if (isIPadSafari) {
-                    // iPad Safari needs different adjustments for top vs bottom
-                    topMargin = 16; // More space from top for Safari UI
-                    bottomMargin = 4; // Closer to bottom edge for Safari
-                } else if (isIPadChrome) {
-                    // iPad Chrome works better with smaller adjustments
-                    topMargin = 12; // Slight adjustment for top
-                    bottomMargin = 12; // Slight adjustment for bottom
-                }
+                // Use consistent 8px margin for all iPad browsers
+                var topMargin = margin; // 8px margin
+                var bottomMargin = margin; // 8px margin
                 
                 // Top drawer - using browser-specific top margin
                 var topDrawerHeight = topDrawer.classList.contains('expanded') ? 80 : 40;
