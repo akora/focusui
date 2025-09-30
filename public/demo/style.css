@@ -644,77 +644,43 @@ body {
     }
 }
 
-    /* Final iPad bottom drawer styling - optimized positioning */
+    /* iPad-specific drawer positioning - maintain consistency */
 @media (min-device-width: 768px) {
-    .drawer-bottom {
-        /* Clean glass styling */
-        background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.4) 0%,
-            rgba(255, 255, 255, 0.2) 50%,
-            rgba(0, 0, 0, 0.1) 100%);
-        backdrop-filter: blur(16px) saturate(1.4);
-        -webkit-backdrop-filter: blur(16px) saturate(1.4);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        /* Final positioning - very close to bottom with center alignment */
-        bottom: 1vh !important;
-        left: 50% !important;
-        transform: translateX(-50%) translateZ(0) !important;
-        width: 75vw !important; /* Shorter, centered drawer */
-        position: fixed !important;
-        z-index: 99999 !important;
-        min-height: 40px;
-        box-shadow:
-            0 4px 16px rgba(0, 0, 0, 0.1),
-            0 2px 8px rgba(0, 0, 0, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .drawer-bottom.expanded {
-        height: 80px !important;
-        max-height: 15vh !important;
-        bottom: 1vh !important;
-        background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.3) 0%,
-            rgba(255, 255, 255, 0.15) 50%,
-            rgba(0, 0, 0, 0.05) 100%);
-        backdrop-filter: blur(20px) saturate(1.6);
-        -webkit-backdrop-filter: blur(20px) saturate(1.6);
-        border: 1px solid rgba(255, 255, 255, 0.35);
-        box-shadow:
-            0 8px 32px rgba(0, 0, 0, 0.15),
-            0 4px 16px rgba(0, 0, 0, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-    }
-
-    .center-area {
-        bottom: 9.5vh !important; /* Adjust for 1.5vh drawer position */
-    }
-
     /* Ensure vertical drawers maintain centering on iPad */
     .drawer-left,
     .drawer-right {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        height: 80vh !important;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 80vh;
     }
 
     /* Expanded and hover states maintain centering */
     .drawer-left.expanded,
     .drawer-right.expanded {
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        height: 80vh !important;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 80vh;
     }
 
-    .drawer-left:hover,
-    .drawer-right:hover {
-        top: 50% !important;
-        transform: translateY(-50%) translateX(-1px) !important;
-        height: 80vh !important;
+    .drawer-left:hover {
+        top: 50%;
+        transform: translateY(-50%) translateX(-1px);
+        height: 80vh;
     }
 
     .drawer-right:hover {
-        transform: translateY(-50%) translateX(1px) !important;
+        top: 50%;
+        transform: translateY(-50%) translateX(1px);
+        height: 80vh;
+    }
+    
+    /* Bottom drawer - keep absolute positioning consistent */
+    .drawer-bottom {
+        position: absolute;
+        bottom: 8px;
+    }
+    
+    .drawer-bottom.expanded {
+        bottom: 8px;
     }
 }

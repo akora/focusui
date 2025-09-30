@@ -1,11 +1,9 @@
 // Drawer functionality with iPad-first positioning and theme switching
 document.addEventListener('DOMContentLoaded', function() {
-    // Detect iPad (Safari and Chrome)
+    // Detect iPad (Safari and Chrome) - strict detection to avoid false positives on desktop
     var ua = navigator.userAgent;
-    var isIPad = ua.indexOf('iPad') !== -1 || 
-                 (ua.indexOf('Macintosh') !== -1 && 'ontouchend' in document) ||
-                 (ua.indexOf('CriOS') !== -1) || // Chrome on iOS
-                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPad Pro detection
+    var isIPad = (ua.indexOf('iPad') !== -1) || 
+                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 && 'ontouchend' in document); // iPad Pro detection only
     
     // Detect specific iPad browsers for fine-tuned adjustments
     var isIPadSafari = isIPad && (ua.indexOf('Safari') !== -1 && ua.indexOf('CriOS') === -1);
