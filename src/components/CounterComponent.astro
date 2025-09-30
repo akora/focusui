@@ -28,18 +28,12 @@ const { counter } = Astro.props;
   </div>
 </div>
 
-<script>
-  // Function to animate counters
-  function animateCounters() {
+<script is:inline>
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
     const counters = document.querySelectorAll(".count");
     const speed = 500;
-    
-    if (counters.length === 0) return;
-    
     counters.forEach((counter) => {
-      // Reset counter to 0 before animating
-      counter.innerText = "0";
-      
       const animate = () => {
         const value = +counter.getAttribute("aria-valuenow");
         const data = +counter.innerText;
@@ -55,16 +49,5 @@ const { counter } = Astro.props;
 
       animate();
     });
-  }
-
-  // Run on DOMContentLoaded for initial page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', animateCounters);
-  } else {
-    // DOM already loaded
-    animateCounters();
-  }
-
-  // Run after Astro view transitions
-  document.addEventListener("astro:after-swap", animateCounters);
+  });
 </script>
