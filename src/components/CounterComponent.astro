@@ -29,7 +29,7 @@ const { counter } = Astro.props;
 </div>
 
 <script is:inline>
-  function initCounters() {
+  const initCounters = () => {
     const counters = document.querySelectorAll(".count");
     const speed = 500;
     counters.forEach((counter) => {
@@ -48,8 +48,11 @@ const { counter } = Astro.props;
 
       animate();
     });
-  }
+  };
 
-  // astro:page-load event is fired when the page is loaded
-  document.addEventListener("astro:page-load", initCounters);
+  // Run immediately on page load (critical for production)
+  initCounters();
+
+  // Run after Astro view transitions
+  document.addEventListener("astro:after-swap", initCounters);
 </script>
