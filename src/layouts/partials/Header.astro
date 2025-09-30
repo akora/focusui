@@ -83,6 +83,8 @@ const { pathname } = Astro.url;
                     <li class="nav-dropdown-item">
                       <a
                         href={child.url}
+                        target={child.url.includes('/demo') ? '_blank' : undefined}
+                        rel={child.url.includes('/demo') ? 'noopener noreferrer' : undefined}
                         class={`nav-dropdown-link block ${
                           (pathname === `${child.url}/` ||
                             pathname === child.url) &&

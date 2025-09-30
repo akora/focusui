@@ -38,6 +38,8 @@ const has_social = Object.entries(social).some(
                     <a
                       class="hover:text-primary hover:underline "
                       href={item.url}
+                      target={item.url.includes('/demo') ? '_blank' : undefined}
+                      rel={item.url.includes('/demo') ? 'noopener noreferrer' : undefined}
                     >
                       {item.name}
                     </a>
