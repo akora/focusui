@@ -28,11 +28,14 @@ const { counter } = Astro.props;
   </div>
 </div>
 
-<script is:inline>
+<script>
   // Function to animate counters
-  const animateCounters = () => {
+  function animateCounters() {
     const counters = document.querySelectorAll(".count");
     const speed = 500;
+    
+    if (counters.length === 0) return;
+    
     counters.forEach((counter) => {
       // Reset counter to 0 before animating
       counter.innerText = "0";
@@ -52,13 +55,16 @@ const { counter } = Astro.props;
 
       animate();
     });
-  };
+  }
 
-  // Run immediately on initial page load
-  animateCounters();
-
-  // Run after Astro view transitions (critical for production)
-  document.addEventListener("astro:after-swap", () => {
+  // Run on DOMContentLoaded for initial page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', animateCounters);
+  } else {
+    // DOM already loaded
     animateCounters();
-  });
+  }
+
+  // Run after Astro view transitions
+  document.addEventListener("astro:after-swap", animateCounters);
 </script>
