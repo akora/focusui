@@ -1,7 +1,7 @@
 [build]
   # Astro build configuration with npm
   publish = "dist"
-  command = "npm install && npm run build"
+  command = "npm run build"
 
 [build.environment]
   # Node version for Astro
@@ -11,11 +11,11 @@
 
 [context.production]
   publish = "dist"
-  command = "npm install && npm run build"
+  command = "npm run build"
 
 [context.deploy-preview]
   publish = "dist"
-  command = "npm install && npm run build"
+  command = "npm run build"
 
 [[headers]]
   # Security headers
