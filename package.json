@@ -4,7 +4,6 @@
   "description": "FocusUI - Revolutionary drawer-based UI system with importance-driven visual hierarchy",
   "author": "FocusUI Team",
   "license": "MIT",
-  "packageManager": "pnpm@9.13.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
