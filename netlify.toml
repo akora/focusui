@@ -1,21 +1,19 @@
 [build]
-  # Astro build configuration with pnpm
+  # Astro build configuration with npm
   publish = "dist"
-  command = "pnpm run build"
+  command = "npm run build"
 
 [build.environment]
   # Node version for Astro
   NODE_VERSION = "18"
-  # Enable pnpm
-  NPM_FLAGS = "--version" # This enables pnpm detection
 
 [context.production]
   publish = "dist"
-  command = "pnpm run build"
+  command = "npm run build"
 
 [context.deploy-preview]
   publish = "dist"
-  command = "pnpm run build"
+  command = "npm run build"
 
 [[headers]]
   # Security headers
