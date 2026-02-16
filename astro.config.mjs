@@ -1,6 +1,6 @@
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
-import sitemap from "@astrojs/sitemap";
+// import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import config from "./src/config/config.json";
@@ -20,7 +20,7 @@ export default defineConfig({
   // },
   integrations: [
     react(),
-    sitemap(),
+    // sitemap(), // Disabled due to build issues on Netlify
     tailwind(),
     AutoImport({
       // import react components to use in mdx
